@@ -5,32 +5,38 @@
 
 namespace GLEngine {
 
-	class GLSLProgram {
+    //This class handles the compilation, linking, and usage of a GLSL shader program.
+    //Reference: http://www.opengl.org/wiki/Shader_Compilation
+    class GLSLProgram
+    {
+    public:
+        GLSLProgram();
+        ~GLSLProgram();
 
-		public:
-			GLSLProgram();
-			~GLSLProgram();
+        void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 
-			// Pass them by reference to stop from copying them each time they need to be used but keep them constant to make sure
-			// we don't change them
-			void compileShaders(const std::string &vertexShaderFilePath, const std::string &fragmentShaderFilePath);
-			void linkShaders();
-			void addAttribute(const std::string &attributeName);
-			void use();
-			void unuse();
+        void compileShadersFromSource(const char* vertexSource, const char* fragmentSource);
 
-			GLint getUniformLocation(std::string uniformName);
+        void linkShaders();
 
-		private:
-			GLuint m_programID;
+        void addAttribute(const std::string& attributeName);
 
-			GLuint m_vertexShaderID;
-			GLuint m_fragmentShaderID;
+        GLint getUniformLocation(const std::string& uniformName);
 
-			int m_numAttributes;
+        void use();
+        void unuse();
 
-			void compileShader(const std::string filePath, GLuint shaderID);
+        void dispose();
+    private:
 
-	};
+        int _numAttributes;
+
+        void compileShader(const char* source, const std::string& name, GLuint id);
+
+        GLuint _programID;
+
+        GLuint _vertexShaderID;
+        GLuint _fragmentShaderID;
+    };
 
 }

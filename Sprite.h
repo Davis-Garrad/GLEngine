@@ -1,29 +1,31 @@
 #pragma once
-
 #include <GL/glew.h>
-#include <string>
-
 #include "GLTexture.h"
+
+#include <string>
+#include <glm/glm.hpp>
 
 namespace GLEngine {
 
-	class Sprite {
+    //A 2D quad that can be rendered to the screen
+    class Sprite
+    {
+    public:
+        Sprite();
+        ~Sprite();
 
-		public:
-			Sprite();
-			~Sprite();
-			void draw();
-			void init(float x, float y, float width, float height, std::string texturePath);
+        void init(float x, float y, float width, float height, std::string texturePath, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
 
-		private:
-			float m_x;
-			float m_y;
-			float m_width;
-			float m_height;
+        void draw();
 
-			GLuint m_vboID;
-			GLTexture m_texture;
+        //private:
+        float _x;
+        float _y;
+        float _width;
+        float _height;
+        GLuint _vboID;
+        GLTexture _texture;
 
-	};
+    };
 
 }

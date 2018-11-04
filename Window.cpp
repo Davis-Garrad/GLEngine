@@ -1,70 +1,75 @@
 #include "Window.h"
-
 #include "GLEngineErrors.h"
+
 #include <iostream>
 
 namespace GLEngine {
 
-	Window::Window() :
-			m_window(nullptr), m_width(0), m_height(0) {
+    Window::Window()
+    {
+    }
 
-	}
-	
-	Window::~Window() {
-		delete(m_window);
-	}
 
-	int Window::createWin(std::string WindowName, int width, int height, unsigned int currentFlags) {
+    Window::~Window()
+    {
+    }
 
-		m_width = width;
-		m_height = height;
+    int Window::create(unsigned int currentFlags) {
 
-		Uint32 uIntFlags = currentFlags;
+        Uint32 flags = SDL_WINDOW_OPENGL;
 
-		uIntFlags |= currentFlags;
+        if (currentFlags & INVISIBLE) {
+            flags |= SDL_WINDOW_HIDDEN;
+        }
+        if (currentFlags & FULLSCREEN) {
+            flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+        }
+        if (currentFlags & BORDERLESS) {
+            flags |= SDL_WINDOW_BORDERLESS;
+        }
 
-		m_window = SDL_CreateWindow(WindowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, uIntFlags | SDL_WINDOW_OPENGL);
+        //Open an SDL window
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3.2); // Sets the OpenGL context attribute (minimum version) to 3.2
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4.5); // Sets the OpenGL context attribute (maximum version) to 4.5
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // Set the OpenGL context to be the core version
 
-		if (m_window == nullptr) {
-			fatalError("Could not initialize SDL window.");
-		}
+        _sdlWindow = SDL_CreateWindow(m_windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _screenWidth, _screenHeight, flags);
+        if (_sdlWindow == nullptr) {
+            fatalError("SDL Window could not be created!");
+        }
 
-		// Start creating an OpenGL Context
+        glewExperimental = GL_TRUE; // Make sure we can use experimental drivers and features, such as making a core context
 
-		SDL_GLContext glContext = SDL_GL_CreateContext(m_window);
+        //Set up our OpenGL context
+        SDL_GLContext glContext = SDL_GL_CreateContext(_sdlWindow);
+        if (glContext == nullptr) {
+            fatalError("SDL_GL context could not be created!");
+        }
 
-		if (glContext == nullptr) {
-			fatalError("GL Context could not be created.");
-		}
+        //Set up glew (optional but recommended)
+        GLenum error = glewInit();
+        if (error != GLEW_OK) {
+            fatalError("Could not initialize glew!");
+        }
 
-		//Initializing GLEW
-		GLenum error = glewInit();
+        //Check the OpenGL version
+        std::printf("***   OpenGL Version: %s   ***\n", glGetString(GL_VERSION));
 
-		if (error != GLEW_OK) {
-			fatalError("Could not initialize GLEW.");
-		}
+        //Set the background color to blue
+        glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 
-		// Check and print the OpenGL version
-		printf("\n\n*** OpenGL Version: %s***\n\n", glGetString(GL_VERSION));
+        //Set VSYNC
+        SDL_GL_SetSwapInterval(0);
 
-		//Set background colour
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+        // Enable alpha blend
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		SDL_GL_SetSwapInterval(0); // Set to 1 to avoid screen tearing with VSync
+        return 0;
+    }
 
-		//Enable alpha blending
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		return 0;
-
-	}
-
-	void Window::swapBuffer(int pad) {
-
-		//Switching Buffer
-		SDL_GL_SwapWindow(m_window);
-
-	}
+    void Window::swapBuffer() {
+        SDL_GL_SwapWindow(_sdlWindow);
+    }
 
 }

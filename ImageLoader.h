@@ -1,15 +1,15 @@
 #pragma once
+#include "GLTexture.h"
 
 #include <string>
-#include "GLTexture.h"
 
 namespace GLEngine {
 
-	class ImageLoader {
-
-		public:
-			static GLTexture loadPNG(std::string filePath);
-
-	};
+    //Loads images into GLTextures
+    class ImageLoader
+    {
+    public:
+        static GLTexture loadPNG(std::string filePath);
+    };
 
 }

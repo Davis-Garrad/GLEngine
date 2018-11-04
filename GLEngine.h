@@ -1,7 +1,5 @@
-#pragma once
+
 
 namespace GLEngine {
-
-	extern int init();
-
+    extern int init();
 }

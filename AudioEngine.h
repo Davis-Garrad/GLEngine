@@ -1,53 +1,58 @@
 #pragma once
 
 #include <SDL2/SDL_mixer.h>
-
 #include <string>
-#include <vector>
 #include <map>
 
 namespace GLEngine {
 
-	class SoundEffect {
-		public:
-			friend class AudioEngine;
+    class SoundEffect {
+    public:
+        friend class AudioEngine;
 
-			void play(int loops = 0);
+        /// Plays the effect file
+        /// @param loops: If loops == -1, loop forever,
+        /// otherwise play it loops+1 times
+        void play(int loops = 0);
+    private:
+        Mix_Chunk* m_chunk = nullptr;
+    };
 
-		private:
-			Mix_Chunk* m_chunk = nullptr;
+    class Music {
+    public:
+        friend class AudioEngine;
 
-	};
+        /// Plays the music file
+        /// @param loops: If loops == -1, loop forever,
+        /// otherwise play it loops times
+        void play(int loops = 1);
 
-	class Music {
-		public:
-			friend class AudioEngine;
+        /// Pauses whatever song is currently playing
+        static void pause();
+        /// Stops whatever song is currently playing
+        static void stop();
+        /// Resumes whatever song is currently playing
+        static void resume();
+    private:
+        Mix_Music* m_music = nullptr;
+    };
 
-			void play(int loops = 0);
-			static void pause();
-			static void stop();
-			static void resume();
+    class AudioEngine {
+    public:
+        AudioEngine();
+        ~AudioEngine();
 
-		private:
-			Mix_Music* m_music = nullptr;
-	};
+        void init();
+        void destroy();
 
-	class AudioEngine {
-		public:
-			AudioEngine();
-			~AudioEngine();
+        SoundEffect loadSoundEffect(const std::string& filePath);
+        Music loadMusic(const std::string& filePath);
+    private:
 
-			void destroy();
-			void init();
+        std::map<std::string, Mix_Chunk*> m_effectMap; ///< Effects cache
+        std::map<std::string, Mix_Music*> m_musicMap; ///< Music cache
 
-			SoundEffect loadSoundEffect(const std::string &filepath);
-			Music loadMusic(const std::string &filepath);
-		private:
-
-			std::map<std::string, Mix_Chunk*> m_effectMap;
-			std::map<std::string, Mix_Music*> m_musicMap;
-
-			bool m_initialized = false;
-	};
+        bool m_isInitialized = false;
+    };
 
 }

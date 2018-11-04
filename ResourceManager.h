@@ -1,20 +1,18 @@
 #pragma once
-
-#include <string>
-#include "GLTexture.h"
 #include "TextureCache.h"
+#include <string>
 
 namespace GLEngine {
 
-	class ResourceManager {
+    //This is a way for us to access all our resources, such as
+    //Models or textures.
+    class ResourceManager
+    {
+    public:
+        static GLTexture getTexture(std::string texturePath);
 
-		public:
-
-			static GLTexture getTexture(std::string filePath);
-
-		private:
-			static TextureCache m_textureCache;
-
-	};
+    private:
+        static TextureCache _textureCache;
+    };
 
 }

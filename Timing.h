@@ -2,26 +2,31 @@
 
 namespace GLEngine {
 
-	class FPSLimiter {
+    ///Calculates FPS and also limits FPS
+    class FpsLimiter {
+    public:
+        FpsLimiter();
 
-		public:
-			FPSLimiter();
-			void init(float maxFPS);
+        // Initializes the FPS limiter. For now, this is
+        // analogous to setMaxFPS
+        void init(float maxFPS);
 
-			void setMaxFPS(float maxFPS);
+        // Sets the desired max FPS
+        void setMaxFPS(float maxFPS);
 
-			void begin();
-			float end(); // returns FPS
+        void begin();
 
-		private:
+        // end() will return the current FPS as a float
+        float end();
+    private:
+        // Calculates the current FPS
+        void calculateFPS();
 
-			void calculateFPS();
-
-			unsigned int m_startTicks;
-			float m_maxFPS;
-			float m_fps;
-			float m_frameTime;
-
-	};
+        // Variables
+        float _fps;
+        float _maxFPS;
+        float _frameTime;
+        unsigned int _startTicks;
+    };
 
 }

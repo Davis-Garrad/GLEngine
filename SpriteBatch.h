@@ -6,81 +6,96 @@
 
 #include "Vertex.h"
 
-namespace GLEngine {
+namespace GLEngine{
 
-	enum class GlyphSortType {
+// Determines how we should sort the glyphs
+enum class GlyphSortType {
+    NONE,
+    FRONT_TO_BACK,
+    BACK_TO_FRONT,
+    TEXTURE
+};
 
-		NONE, FRONT_TO_BACK, BACK_TO_FRONT, TEXTURE
+// A glyph is a single quad. These are added via SpriteBatch::draw
+class Glyph {
+public:
+    Glyph() {};
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec3 light);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light);
 
-	};
+    GLuint texture;
+    float depth;
 
-	class Glyph {
+    Vertex topLeft;
+    Vertex bottomLeft;
+    Vertex topRight;
+    Vertex bottomRight;
+private:
+    // Rotates a point about (0,0) by angle
+    glm::vec2 rotatePoint(const glm::vec2& pos, float angle);
+};
 
-		public:
+// Each render batch is used for a single draw call
+class RenderBatch {
+public:
+    RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset),
+        numVertices(NumVertices), texture(Texture) {
+    }
+    GLuint offset;
+    GLuint numVertices;
+    GLuint texture;
+};
 
-			Glyph(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureP, const ColourRGBA8 &colour, float depthP);
-			Glyph(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureP, const ColourRGBA8 &colour, float depthP, float angle);
-            Glyph(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint textureP, const ColourRGBA8 &colour, float depthP, glm::vec2 dir);
+// The SpriteBatch class is a more efficient way of drawing sprites
+class SpriteBatch
+{
+public:
+    SpriteBatch();
+    ~SpriteBatch();
 
-			Vertex topLeft;
-			Vertex bottomLeft;
-			Vertex topRight;
-			Vertex bottomRight;
+    // Initializes the spritebatch
+    void init();
+    void dispose();
 
-			GLuint texture;
+    // Begins the spritebatch
+    void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
 
-			float depth;
+    // Ends the spritebatch
+    void end();
 
-		private:
-			glm::vec2 rotatePoint(glm::vec2 point, float angle);
+    // Adds a glyph to the spritebatch
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+    // Adds a glyph to the spritebatch with rotation
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+    // Adds a glyph to the spritebatch with rotation
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
 
-	};
+    // Renders the entire SpriteBatch to the screen
+    void renderBatch();
 
-	class RenderBatch {
+private:
+    // Creates all the needed RenderBatches
+    void createRenderBatches();
 
-		public:
-			RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) :
-					offset(Offset), numVertices(NumVertices), texture(Texture) {
-			}
+    // Generates our VAO and VBO
+    void createVertexArray();
 
-			GLuint offset;
-			GLuint numVertices;
-			GLuint texture;
+    // Sorts glyphs according to _sortType
+    void sortGlyphs();
 
-	};
+    // Comparators used by sortGlyphs()
+    static bool compareFrontToBack(Glyph* a, Glyph* b);
+    static bool compareBackToFront(Glyph* a, Glyph* b);
+    static bool compareTexture(Glyph* a, Glyph* b);
 
-	class SpriteBatch {
-		public:
-			SpriteBatch();
-			~SpriteBatch();
+    GLuint _vbo;
+    GLuint _vao;
 
-			void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
-			void end();
+    GlyphSortType _sortType;
 
-			void draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, const ColourRGBA8 &colour, float depth); // destRect = Position + Dimensions, uvRect = UV Position + Dimensions
-			void draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, const ColourRGBA8 &colour, float depth, float angle);
-			void draw(const glm::vec4 &destRect, const glm::vec4 &uvRect, GLuint texture, const ColourRGBA8 &colour, float depth, const glm::vec2 dir);
-			void createRenderBatches();
-			void renderBatch();
-
-			void init();
-
-			void createVertexArray();
-
-			void sortGlyphs();
-
-		private:
-			GLuint m_vbo;
-			GLuint m_vao;
-			std::vector<Glyph*> m_glyphPointers;
-			std::vector<Glyph> m_glyphs;
-			GlyphSortType m_sortType;
-			std::vector<RenderBatch> m_renderBatches;
-
-			static bool compareFrontToBack(Glyph* a, Glyph* b);
-			static bool compareBackToFront(Glyph* a, Glyph* b);
-			static bool compareTexture(Glyph* a, Glyph* b);
-
-	};
+    std::vector<Glyph*> _glyphPointers; ///< This is for sorting
+    std::vector<Glyph> _glyphs; ///< These are the actual glyphs
+    std::vector<RenderBatch> _renderBatches;
+};
 
 }

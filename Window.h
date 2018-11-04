@@ -1,36 +1,31 @@
 #pragma once
-
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <string>
 
 namespace GLEngine {
 
-	enum WindowFlags {
+    enum WindowFlags { INVISIBLE = 0x1, FULLSCREEN = 0x2, BORDERLESS = 0x4 };
 
-		FULLSCREEN = SDL_WINDOW_FULLSCREEN_DESKTOP, INVISIBLE = SDL_WINDOW_HIDDEN, BORDERLESS = SDL_WINDOW_BORDERLESS
+    class Window
+    {
+    public:
+        Window();
+        ~Window();
 
-	};
+        int create(unsigned int currentFlags);
 
-	class Window {
-		public:
-			Window();
-			~Window();
+        void setScreenTitle(std::string newTitle) { m_windowTitle = newTitle; }
+        void setScreenSize(int width, int height) { _screenWidth = width; _screenHeight = height; }
 
-			int createWin(std::string WindowName, int width, int height, unsigned int flags);
-			void swapBuffer(int pad);
+        void swapBuffer();
 
-			int getScreenWidth() {
-				return m_width;
-			}
-			int getScreenHeight() {
-				return m_height;
-			}
-
-		private:
-			SDL_Window *m_window;
-			int m_width, m_height;
-
-	};
+        int getScreenWidth() { return _screenWidth; }
+        int getScreenHeight() { return _screenHeight; }
+    private:
+        SDL_Window* _sdlWindow;
+        int _screenWidth, _screenHeight;
+        std::string m_windowTitle;
+    };
 
 }

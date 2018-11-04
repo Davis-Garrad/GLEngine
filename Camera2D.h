@@ -1,44 +1,46 @@
 #pragma once
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace GLEngine {
 
-	class Camera2D {
+    //Camera class for 2D games
+    class Camera2D
+    {
+    public:
+        Camera2D();
+        ~Camera2D();
 
-	public:
-		Camera2D();
-		~Camera2D();
+        //sets up the orthographic matrix and screen dimensions
+        void init(int screenWidth, int screenHeight);
 
-		void update();
-		void init(int screenWidth, int screenHeight);
+        //updates the camera matrix if needed
+        void update();
 
-		// Getters & Setters for position
-		void setPosition(const glm::vec2 &newPos) { m_needsUpdate = true; m_position = newPos; }
-		glm::vec2 getPosition() { return m_position; }
+        glm::vec2 convertScreenToWorld(glm::vec2 screenCoords);
 
-		// Getters & Setters for scale
-		void setScale(const float &newScale) { m_needsUpdate = true; m_scale = newScale; }
-		float getScale() { return m_scale; }
+        bool isBoxInView(const glm::vec2& position, const glm::vec2& dimensions);
 
-		glm::mat4 getCameraMatrix() { return m_cameraMatrix; }
-		glm::vec2 convertScreenToWorld(glm::vec2 screenCoords);
+        void offsetPosition(const glm::vec2& offset) { _position += offset; _needsMatrixUpdate = true; }
+        void offsetScale(float offset) { _scale += offset; if (_scale < 0.001f) _scale = 0.001f; _needsMatrixUpdate = true; }
 
-		bool isBoxInView(const glm::vec2 &position, const glm::vec2 &dimensions);
+        //setters
+        void setPosition(const glm::vec2& newPosition) { _position = newPosition; _needsMatrixUpdate = true; }
+        void setScale(float newScale) { _scale = newScale; _needsMatrixUpdate = true; }
 
-	private:
+        //getters
+        const glm::vec2& getPosition() const { return _position; }
+        float getScale() const { return _scale; }
+        const glm::mat4& getCameraMatrix() const { return _cameraMatrix; }
+        float getAspectRatio() const { return (float)_screenWidth / (float)_screenHeight; }
 
-		int m_screenWidth, m_screenHeight;
-
-		bool m_needsUpdate;
-		float m_scale; // Zoom factor (Mr. Sulu)
-
-		glm::vec2 m_position; // Same type as GLSL use
-		glm::mat4 m_cameraMatrix; // Mat4 is 4x4 matrix
-		glm::mat4 m_orthoMatrix;
-
-
-	};
+    private:
+        int _screenWidth, _screenHeight;
+        bool _needsMatrixUpdate;
+        float _scale;
+        glm::vec2 _position;
+        glm::mat4 _cameraMatrix;
+        glm::mat4 _orthoMatrix;
+    };
 
 }

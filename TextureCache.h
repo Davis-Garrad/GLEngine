@@ -1,24 +1,20 @@
 #pragma once
-
 #include <map>
-#include <string>
-
 #include "GLTexture.h"
 
 namespace GLEngine {
 
-	class TextureCache {
+    //This caches the textures so that multiple sprites can use the same textures
+    class TextureCache
+    {
+    public:
+        TextureCache();
+        ~TextureCache();
 
-		public:
+        GLTexture getTexture(std::string texturePath);
 
-			TextureCache();
-			~TextureCache();
-
-			GLTexture getTexture(std::string filePath);
-
-		private:
-			std::map<std::string, GLTexture> m_textureMap;
-
-	};
+    private:
+        std::map<std::string, GLTexture> _textureMap;
+    };
 
 }

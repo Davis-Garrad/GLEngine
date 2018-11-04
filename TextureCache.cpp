@@ -1,36 +1,33 @@
-#include "ImageLoader.h"
 #include "TextureCache.h"
-
-#include "GLEngineErrors.h"
 #include "ImageLoader.h"
+#include <iostream>
 
 namespace GLEngine {
-	
-	TextureCache::TextureCache() {
 
-	}
-	
-	TextureCache::~TextureCache() {
+    TextureCache::TextureCache()
+    {
+    }
 
-	}
-	
-	GLTexture TextureCache::getTexture(std::string filePath) {
+    TextureCache::~TextureCache()
+    {
+    }
 
-		auto mit = m_textureMap.find(filePath); // Auto turns 'auto myString = "Hello";' into 'STRING myString = "Hello";'
+    GLTexture TextureCache::getTexture(std::string texturePath) {
 
-		if (mit == m_textureMap.end()) {
+        //lookup the texture and see if its in the map
+        auto mit = _textureMap.find(texturePath);
 
-			GLTexture newTexture = ImageLoader::loadPNG(filePath);
+        //check if its not in the map
+        if (mit == _textureMap.end()) {
+            //Load the texture
+            GLTexture newTexture = ImageLoader::loadPNG(texturePath);
 
-			// Put the key and val into the map in a 'pair'
-			m_textureMap.insert(make_pair(filePath, newTexture));
+            //Insert it into the map
+            _textureMap.insert(make_pair(texturePath, newTexture));
 
-			return newTexture;
-			
-		}
-		
-		return mit->second;
-		
-	}
+            return newTexture;
+        }
+        return mit->second;
+    }
 
 }

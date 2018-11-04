@@ -63,6 +63,8 @@
 		<Unit filename="AudioEngine.h" />
 		<Unit filename="Camera2D.cpp" />
 		<Unit filename="Camera2D.h" />
+		<Unit filename="DebugRenderer.cpp" />
+		<Unit filename="DebugRenderer.h" />
 		<Unit filename="GLEngine.cpp" />
 		<Unit filename="GLEngine.h" />
 		<Unit filename="GLEngineErrors.cpp" />
@@ -72,6 +74,11 @@
 		<Unit filename="GLSLProgram.cpp" />
 		<Unit filename="GLSLProgram.h" />
 		<Unit filename="GLTexture.h" />
+		<Unit filename="GUI.cpp" />
+		<Unit filename="GUI.h" />
+		<Unit filename="IGameScreen.h" />
+		<Unit filename="IMainGame.cpp" />
+		<Unit filename="IMainGame.h" />
 		<Unit filename="IOManager.cpp" />
 		<Unit filename="IOManager.h" />
 		<Unit filename="ImageLoader.cpp" />
@@ -86,6 +93,8 @@
 		<Unit filename="Physics.h" />
 		<Unit filename="ResourceManager.cpp" />
 		<Unit filename="ResourceManager.h" />
+		<Unit filename="ScreenList.cpp" />
+		<Unit filename="ScreenList.h" />
 		<Unit filename="Sprite.cpp" />
 		<Unit filename="Sprite.h" />
 		<Unit filename="SpriteBatch.cpp" />
@@ -94,8 +103,7 @@
 		<Unit filename="SpriteFont.h" />
 		<Unit filename="TextureCache.cpp" />
 		<Unit filename="TextureCache.h" />
-		<Unit filename="Time.cpp" />
-		<Unit filename="Time.h" />
+		<Unit filename="TileSheet.h" />
 		<Unit filename="Timing.cpp" />
 		<Unit filename="Timing.h" />
 		<Unit filename="Vertex.h" />

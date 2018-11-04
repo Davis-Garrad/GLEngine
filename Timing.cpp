@@ -1,97 +1,78 @@
 #include "Timing.h"
 
-#include <SDL2/SDL.h>
-#include <iostream>
+#include <SDL/SDL.h>
 
 namespace GLEngine {
 
+    FpsLimiter::FpsLimiter() {
+    }
+    void FpsLimiter::init(float maxFPS) {
+        setMaxFPS(maxFPS);
+    }
 
+    void FpsLimiter::setMaxFPS(float maxFPS) {
+        _maxFPS = maxFPS;
+    }
 
+    void FpsLimiter::begin() {
+        _startTicks = SDL_GetTicks();
+    }
 
-	FPSLimiter::FPSLimiter() :
-			m_startTicks(0.0f), m_maxFPS(60.0f), m_fps(0.0f), m_frameTime(0.0f) {
+    float FpsLimiter::end() {
+        calculateFPS();
 
-	}
+        float frameTicks = (float)(SDL_GetTicks() - _startTicks);
+        //Limit the FPS to the max FPS
+        if (1000.0f / _maxFPS > frameTicks) {
+            SDL_Delay((Uint32)(1000.0f / _maxFPS - frameTicks));
+        }
 
-	void FPSLimiter::init(float maxFPS) {
-		setMaxFPS(maxFPS);
-	}
+        return _fps;
+    }
 
-	void FPSLimiter::setMaxFPS(float maxFPS) {
-		m_maxFPS = maxFPS;
-	}
+    void FpsLimiter::calculateFPS() {
+        //The number of frames to average
+        static const int NUM_SAMPLES = 10;
+        //Stores all the frametimes for each frame that we will average
+        static float frameTimes[NUM_SAMPLES];
+        //The current frame we are on
+        static int currentFrame = 0;
+        //the ticks of the previous frame
+        static Uint32 prevTicks = SDL_GetTicks();
 
-	void FPSLimiter::begin() {
+        //Ticks for the current frame
+        Uint32 currentTicks = SDL_GetTicks();
 
-		m_startTicks = SDL_GetTicks();
+        //Calculate the number of ticks (ms) for this frame
+        _frameTime = (float)(currentTicks - prevTicks);
+        frameTimes[currentFrame % NUM_SAMPLES] = _frameTime;
 
-	}
+        //current ticks is now previous ticks
+        prevTicks = currentTicks;
 
-	float FPSLimiter::end() {
+        //The number of frames to average
+        int count;
 
-		calculateFPS();
+        currentFrame++;
+        if (currentFrame < NUM_SAMPLES) {
+            count = currentFrame;
+        } else {
+            count = NUM_SAMPLES;
+        }
 
-		float frameTicks = SDL_GetTicks() - m_startTicks;
+        //Average all the frame times
+        float frameTimeAverage = 0;
+        for (int i = 0; i < count; i++) {
+            frameTimeAverage += frameTimes[i];
+        }
+        frameTimeAverage /= count;
 
-		// Limit the fps to m_maxFPS
+        //Calculate FPS
+        if (frameTimeAverage > 0) {
+            _fps = 1000.0f / frameTimeAverage;
+        } else {
+            _fps = 60.0f;
+        }
+    }
 
-		if (1000.0f / m_maxFPS > frameTicks) {
-			SDL_Delay(1000.0f / m_maxFPS - frameTicks);
-		}
-
-		return m_fps;
-	}
-
-	void FPSLimiter::calculateFPS() {
-
-		static const int NUMm_SAMPLES = 20;
-		static float frameTimes[NUMm_SAMPLES];
-
-		static float previousTicks = SDL_GetTicks();
-		float currentTicks;
-
-		currentTicks = SDL_GetTicks();
-
-		m_frameTime = currentTicks - previousTicks;
-
-		static int currentFrame = 0;
-
-		frameTimes[currentFrame % NUMm_SAMPLES] = m_frameTime;
-
-		previousTicks = currentTicks;
-
-		int count;
-		currentFrame++;
-
-		if (currentFrame < NUMm_SAMPLES) {
-
-			count = currentFrame;
-
-		} else {
-
-			count = NUMm_SAMPLES;
-
-		}
-
-		float frameTimeAverage = 0;
-
-		for (int i = 0; i < count; i++) {
-
-			frameTimeAverage += frameTimes[i];
-
-		}
-
-		frameTimeAverage /= count;
-
-		if (frameTimeAverage > 0) {
-
-			m_fps = 1000.0f / frameTimeAverage;
-
-		} else {
-
-			m_fps = 666.666f;
-
-		}
-
-	}
 }

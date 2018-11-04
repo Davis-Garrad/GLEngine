@@ -1,55 +1,79 @@
 #include "IOManager.h"
 
+#include <experimental/filesystem>
 #include <fstream>
 
+// Namespace alias
+namespace fs = std::experimental::filesystem::v1;
+
 namespace GLEngine {
-	
-	bool IOManager::readFileToBuffer(std::vector<unsigned char>& buffer, std::string filePath) {
 
-		std::ifstream file(filePath, std::ios::binary);
-		if (file.fail()) {
-			perror(filePath.c_str());
-			return false;
-		}
+    bool IOManager::readFileToBuffer(std::string filePath, std::vector<unsigned char>& buffer) {
+        std::ifstream file(filePath, std::ios::binary);
+        if (file.fail()) {
+            perror(filePath.c_str());
+            return false;
+        }
 
-		// Find total size of file
-		//Seek to the end with the 'cursor'
-		file.seekg(0, std::ios::end);
-		int fileSize = file.tellg();
-		//Seek back
-		file.seekg(0, std::ios::beg);
+        //seek to the end
+        file.seekg(0, std::ios::end);
 
-		// Take away any header bytes that may be present ;)
-		fileSize -= file.tellg();
+        //Get the file size
+        unsigned int fileSize = (unsigned int)file.tellg();
+        file.seekg(0, std::ios::beg);
 
-		buffer.resize(fileSize);
+        //Reduce the file size by any header bytes that might be present
+        fileSize -= (unsigned int)file.tellg();
 
-		file.read((char*) &(buffer[0]), fileSize);
-		file.close();
+        buffer.resize(fileSize);
+        file.read((char *)&(buffer[0]), fileSize);
+        file.close();
 
-		return true;
+        return true;
+    }
 
-	}
+    bool IOManager::readFileToBuffer(std::string filePath, std::string& buffer) {
+        std::ifstream file(filePath, std::ios::binary);
+        if (file.fail()) {
+            perror(filePath.c_str());
+            return false;
+        }
 
-	bool IOManager::readFileToStrings(std::vector<std::string> &strings, std::string filePath) {
+        //seek to the end
+        file.seekg(0, std::ios::end);
 
-		std::ifstream file(filePath);
-		if (file.fail()) {
-			perror(filePath.c_str());
-			return false;
-		}
+        //Get the file size
+        unsigned int fileSize = (unsigned int)file.tellg();
+        file.seekg(0, std::ios::beg);
 
-		std::string line;
+        //Reduce the file size by any header bytes that might be present
+        fileSize -= (unsigned int)file.tellg();
 
-		while(getline(file, line)) {
-			line += "\n";
-			strings.push_back(line);
-		}
+        buffer.resize(fileSize);
+        file.read((char *)&(buffer[0]), fileSize);
+        file.close();
 
-		file.close();
+        return true;
+    }
 
-		return true;
+    bool IOManager::getDirectoryEntries(const char* path, std::vector<DirEntry>& rvEntries) {
+        auto dpath = fs::path(path);
+        // Must be directory
+        if (!fs::is_directory(dpath)) return false;
 
-	}
+        for (auto it = fs::directory_iterator(dpath); it != fs::directory_iterator(); ++it) {
+            rvEntries.emplace_back();
+            rvEntries.back().path = it->path().string();
+            if (is_directory(it->path())) {
+                rvEntries.back().isDirectory = true;
+            } else {
+                rvEntries.back().isDirectory = false;
+            }
+        }
+        return true;
+    }
 
+    bool IOManager::makeDirectory(const char* path) {
+        return fs::create_directory(fs::path(path));
+    }
 }

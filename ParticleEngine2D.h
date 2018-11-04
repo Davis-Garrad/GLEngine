@@ -3,22 +3,25 @@
 #include <vector>
 
 namespace GLEngine {
-	
-	class ParticleBatch2D;
-	class SpriteBatch;
 
-	class ParticleEngine2D {
-		public:
-			ParticleEngine2D();
-			~ParticleEngine2D();
+    class ParticleBatch2D;
+    class SpriteBatch;
 
-			void addParticleBatch(ParticleBatch2D *batch);
+    class ParticleEngine2D {
+    public:
+        ParticleEngine2D();
+        ~ParticleEngine2D();
 
-			void update(float deltaTime);
-			void draw(SpriteBatch *spriteBatch);
+        // After adding a particle batch, the ParticleEngine2D becomes
+        // responsible for deallocation.
+        void addParticleBatch(ParticleBatch2D* particleBatch);
 
-		private:
-			std::vector<ParticleBatch2D*> m_batches;
-	};
+        void update(float deltaTime);
+
+        void draw(SpriteBatch* spriteBatch);
+
+    private:
+        std::vector<ParticleBatch2D*> m_batches;
+    };
 
 }
