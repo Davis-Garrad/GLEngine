@@ -321,7 +321,7 @@
 1519245450 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/picoPNG.h
 	<vector>
 
-1519351520 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IMainGame.cpp
+1546549318 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IMainGame.cpp
 	"IMainGame.h"
 	"Timing.h"
 	"ScreenList.h"
@@ -338,7 +338,7 @@
 	<GL/glew.h>
 	<string>
 
-1519245448 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.h
+1546550476 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.h
 	<unordered_map>
 	<glm/glm.hpp>
 
@@ -350,7 +350,7 @@
 1519247154 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IGameScreen.h
 	"IMainGame.h"
 
-1519245448 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.cpp
+1546549323 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.cpp
 	"InputManager.h"
 
 1519246446 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IOManager.cpp
@@ -368,7 +368,7 @@
 	"SpriteBatch.h"
 	"GLTexture.h"
 
-1541307359 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
+1541308251 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -408,18 +408,19 @@
 	"ScreenList.h"
 	"IGameScreen.h"
 
-1519248226 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
+1541308085 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
 	"Sprite.h"
 	"Vertex.h"
 	"ResourceManager.h"
 	<cstddef>
 
-1519245450 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.h
+1541308079 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.h
 	<GL/glew.h>
 	"GLTexture.h"
 	<string>
+	<glm/glm.hpp>
 
-1541307986 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
+1541308424 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
 	"SpriteBatch.h"
 	<algorithm>
 

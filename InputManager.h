@@ -29,6 +29,10 @@ public:
 
     //getters
     glm::vec2 getMouseCoords() const { return _mouseCoords; }
+    int getMouseScrollPosition() const { return m_mouseScrollPosition; }
+
+    //setters
+    void setMouseScrollPosition(int scrollPosition) { m_mouseScrollPosition = scrollPosition; }
 private:
     /// Returns true if the key is held down
     bool wasKeyDown(unsigned int keyID);
@@ -36,6 +40,7 @@ private:
     std::unordered_map<unsigned int, bool> _keyMap;
     std::unordered_map<unsigned int, bool> _previousKeyMap;
     glm::vec2 _mouseCoords;
+    int m_mouseScrollPosition = 0;
 };
 
 }

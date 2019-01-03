@@ -16,6 +16,7 @@ void InputManager::update() {
     for (auto& it : _keyMap) {
         _previousKeyMap[it.first] = it.second;
     }
+    m_mouseScrollPosition = 0;
 }
 
 void InputManager::pressKey(unsigned int keyID) {
