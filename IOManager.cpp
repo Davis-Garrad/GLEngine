@@ -1,10 +1,14 @@
 #include "IOManager.h"
 
-#include <experimental/filesystem>
+#ifndef WINDOWS
+    #include <experimental/filesystem>
+#endif // WINDOWS
 #include <fstream>
 
 // Namespace alias
+#ifndef WINDOWS
 namespace fs = std::experimental::filesystem::v1;
+#endif // WINDOWS
 
 namespace GLEngine {
 
@@ -56,6 +60,7 @@ namespace GLEngine {
         return true;
     }
 
+    #ifndef WINDOWS
     bool IOManager::getDirectoryEntries(const char* path, std::vector<DirEntry>& rvEntries) {
         auto dpath = fs::path(path);
         // Must be directory
@@ -76,4 +81,5 @@ namespace GLEngine {
     bool IOManager::makeDirectory(const char* path) {
         return fs::create_directory(fs::path(path));
     }
+    #endif // WINDOWS
 }

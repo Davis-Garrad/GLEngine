@@ -29,7 +29,7 @@ namespace GLEngine {
         void dispose();
     private:
 
-        int _numAttributes;
+        int _numAttributes = 0;
 
         void compileShader(const char* source, const std::string& name, GLuint id);
 

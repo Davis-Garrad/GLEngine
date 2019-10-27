@@ -22,6 +22,11 @@ namespace GLEngine {
 
     //Compiles the shaders into a form that your GPU can understand
     void GLSLProgram::compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
+        _programID = 0;
+        _numAttributes = 0;
+        _fragmentShaderID = 0;
+        _vertexShaderID = 0;
+
         std::string vertSource;
         std::string fragSource;
 
@@ -124,7 +129,11 @@ namespace GLEngine {
     }
 
     void GLSLProgram::dispose() {
-        if (_programID) glDeleteProgram(_programID);
+        if (_programID) { glDeleteProgram(_programID); }
+        _programID = 0;
+        _numAttributes = 0;
+        _vertexShaderID = 0;
+        _fragmentShaderID = 0;
     }
 
     //Compiles a single shader file

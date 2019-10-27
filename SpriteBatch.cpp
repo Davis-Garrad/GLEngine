@@ -49,22 +49,62 @@ namespace GLEngine {
         tr = rotatePoint(tr, angle) + halfDims;
 
         topLeft.color = color;
-        topLeft.setPosition(destRect.x, destRect.y + destRect.w);
+        topLeft.setPosition(destRect.x + tl.x, destRect.y + tl.y);
         topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
         topLeft.setLight(light.r, light.g, light.b);
 
         bottomLeft.color = color;
-        bottomLeft.setPosition(destRect.x, destRect.y);
+        bottomLeft.setPosition(destRect.x + bl.x, destRect.y + bl.y);
         bottomLeft.setUV(uvRect.x, uvRect.y);
         bottomLeft.setLight(light.r, light.g, light.b);
 
         bottomRight.color = color;
-        bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
+        bottomRight.setPosition(destRect.x + br.x, destRect.y + br.y);
         bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
         bottomRight.setLight(light.r, light.g, light.b);
 
         topRight.color = color;
-        topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
+        topRight.setPosition(destRect.x + tr.x, destRect.y + tr.y);
+        topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
+        topRight.setLight(light.r, light.g, light.b);
+    }
+
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light, const glm::vec2& pointOfRotation) :
+        texture(Texture),
+        depth(Depth) {
+
+        glm::vec2 centrePoint = glm::vec2(destRect.z, destRect.w) * pointOfRotation;
+        glm::vec2 invCentrePoint = glm::vec2(destRect.z, destRect.w) * (1.0f - pointOfRotation);
+
+        // Get points centered at origin
+        glm::vec2 tl(-invCentrePoint.x, centrePoint.y);
+        glm::vec2 bl(-invCentrePoint.x, -invCentrePoint.y);
+        glm::vec2 br(centrePoint.x, -invCentrePoint.y);
+        glm::vec2 tr(centrePoint.x, centrePoint.y);
+
+        // Rotate the points
+        tl = rotatePoint(tl, angle) + centrePoint;
+        bl = rotatePoint(bl, angle) + centrePoint;
+        br = rotatePoint(br, angle) + centrePoint;
+        tr = rotatePoint(tr, angle) + centrePoint;
+
+        topLeft.color = color;
+        topLeft.setPosition(destRect.x + tl.x, destRect.y + tl.y);
+        topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
+        topLeft.setLight(light.r, light.g, light.b);
+
+        bottomLeft.color = color;
+        bottomLeft.setPosition(destRect.x + bl.x, destRect.y + bl.y);
+        bottomLeft.setUV(uvRect.x, uvRect.y);
+        bottomLeft.setLight(light.r, light.g, light.b);
+
+        bottomRight.color = color;
+        bottomRight.setPosition(destRect.x + br.x, destRect.y + br.y);
+        bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
+        bottomRight.setLight(light.r, light.g, light.b);
+
+        topRight.color = color;
+        topRight.setPosition(destRect.x + tr.x, destRect.y + tr.y);
         topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
         topRight.setLight(light.r, light.g, light.b);
     }
@@ -72,7 +112,7 @@ namespace GLEngine {
     glm::vec2 Glyph::rotatePoint(const glm::vec2& pos, float angle) {
         glm::vec2 newv;
         newv.x = pos.x * cos(angle) - pos.y * sin(angle);
-        newv.y = pos.x * sin(angle) + pos.y * cos(angle);
+        newv.y = pos.y * cos(angle) + pos.x * sin(angle);
         return newv;
     }
 
@@ -119,20 +159,20 @@ void SpriteBatch::end() {
     createRenderBatches();
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light/* = glm::vec3(1.0f, 1.0f, 1.0f)*/) {
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light) {
     _glyphs.emplace_back(destRect, uvRect, texture, depth, color, light);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light/* = glm::vec3(1.0f, 1.0f, 1.0f)*/) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light);
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light, const glm::vec2& pointOfRotation) {
+    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light, pointOfRotation);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light/* = glm::vec3(1.0f, 1.0f, 1.0f)*/) {
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light, const glm::vec2& pointOfRotation) {
     const glm::vec2 right(1.0f, 0.0f);
     float angle = acos(glm::dot(right, dir));
     if (dir.y < 0.0f) angle = -angle;
 
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light);
+    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light, pointOfRotation);
 }
 
 void SpriteBatch::renderBatch() {

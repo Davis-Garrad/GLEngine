@@ -32,6 +32,7 @@ namespace GLEngine {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3.2); // Sets the OpenGL context attribute (minimum version) to 3.2
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4.5); // Sets the OpenGL context attribute (maximum version) to 4.5
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // Set the OpenGL context to be the core version
+        //SDL_GL_SetAttribute(SDL_GL_SHARE_WITH_CURRENT_CONTEXT, 1); // So we can share contexts (between threads) Dont do this its very bad and doesnt work
 
         _sdlWindow = SDL_CreateWindow(m_windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _screenWidth, _screenHeight, flags);
         if (_sdlWindow == nullptr) {
@@ -41,8 +42,8 @@ namespace GLEngine {
         glewExperimental = GL_TRUE; // Make sure we can use experimental drivers and features, such as making a core context
 
         //Set up our OpenGL context
-        SDL_GLContext glContext = SDL_GL_CreateContext(_sdlWindow);
-        if (glContext == nullptr) {
+        m_glContext = SDL_GL_CreateContext(_sdlWindow);
+        if (m_glContext == nullptr) {
             fatalError("SDL_GL context could not be created!");
         }
 

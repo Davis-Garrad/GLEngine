@@ -11,8 +11,8 @@ namespace GLEngine{
 // Determines how we should sort the glyphs
 enum class GlyphSortType {
     NONE,
-    FRONT_TO_BACK,
-    BACK_TO_FRONT,
+    FRONT_TO_BACK, // Lower numbers farther back
+    BACK_TO_FRONT, // Lower numbers further forward
     TEXTURE
 };
 
@@ -22,6 +22,7 @@ public:
     Glyph() {};
     Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec3 light);
     Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light, const glm::vec2& pointOfRotation);
 
     GLuint texture;
     float depth;
@@ -64,11 +65,11 @@ public:
     void end();
 
     // Adds a glyph to the spritebatch
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light = glm::vec3(1.0f));
     // Adds a glyph to the spritebatch with rotation
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light = glm::vec3(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
     // Adds a glyph to the spritebatch with rotation
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light = glm::vec3(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
 
     // Renders the entire SpriteBatch to the screen
     void renderBatch();

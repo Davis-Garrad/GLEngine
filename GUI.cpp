@@ -233,6 +233,9 @@ void GLEngine::GUI::onSDLEvent(SDL_Event& evnt) {
         case SDL_MOUSEBUTTONUP:
             m_context->injectMouseButtonUp(SDLButtonToCEGUIButton(evnt.button.button));
             break;
+        case SDL_MOUSEWHEEL:
+            m_context->injectMouseWheelChange(evnt.wheel.y);
+            break;
     }
 }
 

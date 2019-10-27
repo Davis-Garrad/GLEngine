@@ -24,6 +24,7 @@ namespace GLEngine {
         int getScreenHeight() { return _screenHeight; }
     private:
         SDL_Window* _sdlWindow;
+        SDL_GLContext m_glContext = nullptr;
         int _screenWidth, _screenHeight;
         std::string m_windowTitle;
     };

@@ -25,6 +25,10 @@ namespace GLEngine {
     class ParticleBatch2D {
     public:
         ParticleBatch2D();
+        ParticleBatch2D(int maxParticles,
+                        float decayRate,
+                        GLTexture texture,
+                        std::function<void(Particle2D&, float)> updateFunc = defaultParticleUpdate) { init(maxParticles, decayRate, texture, updateFunc); }
         ~ParticleBatch2D();
 
         void init(int maxParticles,

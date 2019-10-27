@@ -1,237 +1,9 @@
 # depslib dependency file v1.0
-1519245448 source:/home/davis-dev/Documents/CodingGithub/GLEngine/AudioEngine.cpp
+1546719428 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp
 	"AudioEngine.h"
 	"GLEngineErrors.h"
 
-1519245462 /home/davis-dev/Documents/CodingGithub/GLEngine/AudioEngine.h
-	<SDL2/SDL_mixer.h>
-	<string>
-	<map>
-
-1519245451 /home/davis-dev/Documents/CodingGithub/GLEngine/GLEngineErrors.h
-	<string>
-
-1519245448 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Camera2D.cpp
-	"Camera2D.h"
-
-1519245451 /home/davis-dev/Documents/CodingGithub/GLEngine/Camera2D.h
-	<glm/glm.hpp>
-	<glm/gtc/matrix_transform.hpp>
-
-1486948457 /home/davis-dev/Documents/CodingGithub/GLEngine/Physics.h
-	<glm/glm.hpp>
-
-1519245449 source:/home/davis-dev/Documents/CodingGithub/GLEngine/GLEngine.cpp
-	<SDL/SDL.h>
-	<GL/glew.h>
-	"GLEngine.h"
-
-1519245449 /home/davis-dev/Documents/CodingGithub/GLEngine/GLEngine.h
-
-1519245451 source:/home/davis-dev/Documents/CodingGithub/GLEngine/GLEngineErrors.cpp
-	"GLEngineErrors.h"
-	<cstdlib>
-	<iostream>
-	<SDL/SDL.h>
-
-1486948457 source:/home/davis-dev/Documents/CodingGithub/GLEngine/GLEngineRandom.cpp
-	"../GLEngine/GLEngineRandom.h"
-	<random>
-
-1486948457 /home/davis-dev/Documents/CodingGithub/GLEngine/GLEngineRandom.h
-
-1519249300 source:/home/davis-dev/Documents/CodingGithub/GLEngine/GLSLProgram.cpp
-	"GLSLProgram.h"
-	"GLEngineErrors.h"
-	"IOManager.h"
-	<vector>
-	<fstream>
-
-1519245448 /home/davis-dev/Documents/CodingGithub/GLEngine/GLSLProgram.h
-	<string>
-	<GL/glew.h>
-
-1519245450 source:/home/davis-dev/Documents/CodingGithub/GLEngine/ImageLoader.cpp
-	"ImageLoader.h"
-	"picoPNG.h"
-	"IOManager.h"
-	"GLEngineErrors.h"
-
-1519245451 /home/davis-dev/Documents/CodingGithub/GLEngine/ImageLoader.h
-	"GLTexture.h"
-	<string>
-
-1519245450 /home/davis-dev/Documents/CodingGithub/GLEngine/GLTexture.h
-	<GL/glew.h>
-	<string>
-
-1519245450 /home/davis-dev/Documents/CodingGithub/GLEngine/picoPNG.h
-	<vector>
-
-1519246377 /home/davis-dev/Documents/CodingGithub/GLEngine/IOManager.h
-	<vector>
-	<string>
-
-1519245449 source:/home/davis-dev/Documents/CodingGithub/GLEngine/InputManager.cpp
-	"InputManager.h"
-
-1519245448 /home/davis-dev/Documents/CodingGithub/GLEngine/InputManager.h
-	<unordered_map>
-	<glm/glm.hpp>
-
-1519246447 source:/home/davis-dev/Documents/CodingGithub/GLEngine/IOManager.cpp
-	"IOManager.h"
-	<experimental/filesystem>
-	<fstream>
-
-1519248150 source:/home/davis-dev/Documents/CodingGithub/GLEngine/ParticleBatch2D.cpp
-	"ParticleBatch2D.h"
-
-1519248150 /home/davis-dev/Documents/CodingGithub/GLEngine/ParticleBatch2D.h
-	<functional>
-	<glm/glm.hpp>
-	"Vertex.h"
-	"SpriteBatch.h"
-	"GLTexture.h"
-
-1519246682 /home/davis-dev/Documents/CodingGithub/GLEngine/Vertex.h
-	<GL/glew.h>
-
-1519246681 /home/davis-dev/Documents/CodingGithub/GLEngine/SpriteBatch.h
-	<GL/glew.h>
-	<glm/glm.hpp>
-	<vector>
-	"Vertex.h"
-
-1519245450 source:/home/davis-dev/Documents/CodingGithub/GLEngine/ParticleEngine2D.cpp
-	"ParticleEngine2D.h"
-	"ParticleBatch2D.h"
-	"SpriteBatch.h"
-
-1519245449 /home/davis-dev/Documents/CodingGithub/GLEngine/ParticleEngine2D.h
-	<vector>
-
-1486948457 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Physics.cpp
-	"Physics.h"
-	<cmath>
-	<iostream>
-
-1519246506 source:/home/davis-dev/Documents/CodingGithub/GLEngine/picoPNG.cpp
-	<vector>
-
-1519245451 source:/home/davis-dev/Documents/CodingGithub/GLEngine/ResourceManager.cpp
-	"ResourceManager.h"
-
-1519245450 /home/davis-dev/Documents/CodingGithub/GLEngine/ResourceManager.h
-	"TextureCache.h"
-	<string>
-
-1519245451 /home/davis-dev/Documents/CodingGithub/GLEngine/TextureCache.h
-	<map>
-	"GLTexture.h"
-
-1519248227 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Sprite.cpp
-	"Sprite.h"
-	"Vertex.h"
-	"ResourceManager.h"
-	<cstddef>
-
-1519245451 /home/davis-dev/Documents/CodingGithub/GLEngine/Sprite.h
-	<GL/glew.h>
-	"GLTexture.h"
-	<string>
-
-1519248269 source:/home/davis-dev/Documents/CodingGithub/GLEngine/SpriteBatch.cpp
-	"SpriteBatch.h"
-	<algorithm>
-
-1519248284 source:/home/davis-dev/Documents/CodingGithub/GLEngine/SpriteFont.cpp
-	"SpriteFont.h"
-	"SpriteBatch.h"
-	<SDL/SDL.h>
-
-1519246682 /home/davis-dev/Documents/CodingGithub/GLEngine/SpriteFont.h
-	<SDL2/SDL_ttf.h>
-	<glm/glm.hpp>
-	<map>
-	<vector>
-	"Vertex.h"
-
-1519245449 source:/home/davis-dev/Documents/CodingGithub/GLEngine/TextureCache.cpp
-	"TextureCache.h"
-	"ImageLoader.h"
-	<iostream>
-
-1486948457 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Time.cpp
-	"Time.h"
-	<SDL2/SDL.h>
-
-1486948457 /home/davis-dev/Documents/CodingGithub/GLEngine/Time.h
-
-1519245450 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Timing.cpp
-	"Timing.h"
-	<SDL/SDL.h>
-
-1519245448 /home/davis-dev/Documents/CodingGithub/GLEngine/Timing.h
-
-1519351693 source:/home/davis-dev/Documents/CodingGithub/GLEngine/Window.cpp
-	"Window.h"
-	"GLEngineErrors.h"
-	<iostream>
-
-1523831483 /home/davis-dev/Documents/CodingGithub/GLEngine/Window.h
-	<SDL2/SDL.h>
-	<GL/glew.h>
-	<string>
-
-1519256699 source:/home/davis-dev/Documents/CodingGithub/GLEngine/DebugRenderer.cpp
-	"DebugRenderer.h"
-
-1519246716 /home/davis-dev/Documents/CodingGithub/GLEngine/DebugRenderer.h
-	"GLSLProgram.h"
-	"Vertex.h"
-	<glm/glm.hpp>
-	<vector>
-
-1519255662 source:/home/davis-dev/Documents/CodingGithub/GLEngine/GUI.cpp
-	<GL/glew.h>
-	"GUI.h"
-	<iostream>
-	<SDL2/SDL_timer.h>
-
-1519255575 /home/davis-dev/Documents/CodingGithub/GLEngine/GUI.h
-	<CEGUI/CEGUI.h>
-	<CEGUI/RendererModules/OpenGL/GL3Renderer.h>
-	<glm/glm.hpp>
-	<SDL2/SDL_events.h>
-
-1519351520 source:/home/davis-dev/Documents/CodingGithub/GLEngine/IMainGame.cpp
-	"IMainGame.h"
-	"Timing.h"
-	"ScreenList.h"
-	"IGameScreen.h"
-
-1519248361 /home/davis-dev/Documents/CodingGithub/GLEngine/IMainGame.h
-	"GLEngine.h"
-	"Window.h"
-	"InputManager.h"
-	<memory>
-
-1519248206 /home/davis-dev/Documents/CodingGithub/GLEngine/ScreenList.h
-	<vector>
-
-1519247154 /home/davis-dev/Documents/CodingGithub/GLEngine/IGameScreen.h
-	"IMainGame.h"
-
-1519246517 source:/home/davis-dev/Documents/CodingGithub/GLEngine/ScreenList.cpp
-	"ScreenList.h"
-	"IGameScreen.h"
-
-1519245448 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp
-	"AudioEngine.h"
-	"GLEngineErrors.h"
-
-1519245462 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.h
+1572193474 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.h
 	<SDL2/SDL_mixer.h>
 	<string>
 	<map>
@@ -255,21 +27,21 @@
 	<glm/glm.hpp>
 	<vector>
 
-1519245448 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLSLProgram.h
+1572203387 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLSLProgram.h
 	<string>
 	<GL/glew.h>
 
 1541307713 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Vertex.h
 	<GL/glew.h>
 
-1519245448 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngine.cpp
+1562364617 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngine.cpp
 	<SDL/SDL.h>
 	<GL/glew.h>
 	"GLEngine.h"
 
 1519245448 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngine.h
 
-1519245450 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngineErrors.cpp
+1562364613 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngineErrors.cpp
 	"GLEngineErrors.h"
 	<cstdlib>
 	<iostream>
@@ -281,7 +53,7 @@
 
 1486948456 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngineRandom.h
 
-1519249300 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLSLProgram.cpp
+1572204142 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLSLProgram.cpp
 	"GLSLProgram.h"
 	"GLEngineErrors.h"
 	"IOManager.h"
@@ -292,13 +64,13 @@
 	<vector>
 	<string>
 
-1519255662 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GUI.cpp
+1557083509 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GUI.cpp
 	<GL/glew.h>
 	"GUI.h"
 	<iostream>
 	<SDL2/SDL_timer.h>
 
-1519255574 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GUI.h
+1562364627 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GUI.h
 	<CEGUI/CEGUI.h>
 	<CEGUI/RendererModules/OpenGL/GL3Renderer.h>
 	<glm/glm.hpp>
@@ -314,14 +86,14 @@
 	"GLTexture.h"
 	<string>
 
-1519245450 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLTexture.h
+1555808099 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLTexture.h
 	<GL/glew.h>
 	<string>
 
 1519245450 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/picoPNG.h
 	<vector>
 
-1546549318 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IMainGame.cpp
+1556327842 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IMainGame.cpp
 	"IMainGame.h"
 	"Timing.h"
 	"ScreenList.h"
@@ -333,7 +105,7 @@
 	"InputManager.h"
 	<memory>
 
-1523831482 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Window.h
+1563999660 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Window.h
 	<SDL2/SDL.h>
 	<GL/glew.h>
 	<string>
@@ -350,10 +122,10 @@
 1519247154 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IGameScreen.h
 	"IMainGame.h"
 
-1546549323 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.cpp
+1546550740 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/InputManager.cpp
 	"InputManager.h"
 
-1519246446 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IOManager.cpp
+1562364193 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/IOManager.cpp
 	"IOManager.h"
 	<experimental/filesystem>
 	<fstream>
@@ -361,14 +133,14 @@
 1519248150 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.cpp
 	"ParticleBatch2D.h"
 
-1519248150 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.h
+1564678251 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.h
 	<functional>
 	<glm/glm.hpp>
 	"Vertex.h"
 	"SpriteBatch.h"
 	"GLTexture.h"
 
-1541308251 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
+1563405031 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -382,21 +154,13 @@
 1519245448 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleEngine2D.h
 	<vector>
 
-1486948456 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Physics.cpp
-	"Physics.h"
-	<cmath>
-	<iostream>
-
-1486948456 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Physics.h
-	<glm/glm.hpp>
-
 1519246506 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/picoPNG.cpp
 	<vector>
 
-1519245450 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ResourceManager.cpp
+1563988176 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ResourceManager.cpp
 	"ResourceManager.h"
 
-1519245450 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ResourceManager.h
+1563988192 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ResourceManager.h
 	"TextureCache.h"
 	<string>
 
@@ -420,11 +184,11 @@
 	<string>
 	<glm/glm.hpp>
 
-1541308424 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
+1560212134 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
 	"SpriteBatch.h"
 	<algorithm>
 
-1519248284 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteFont.cpp
+1562364607 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteFont.cpp
 	"SpriteFont.h"
 	"SpriteBatch.h"
 	<SDL/SDL.h>
@@ -436,17 +200,24 @@
 	<vector>
 	"Vertex.h"
 
-1519245448 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/TextureCache.cpp
+1563998258 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/TextureCache.cpp
 	"TextureCache.h"
 	"ImageLoader.h"
 	<iostream>
 
-1519245450 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Timing.cpp
+1562364605 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Timing.cpp
 	"Timing.h"
 	<SDL/SDL.h>
 
-1519351692 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Window.cpp
+1563999682 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Window.cpp
 	"Window.h"
 	"GLEngineErrors.h"
 	<iostream>
+
+1560558495 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Physics.cpp
+	"Physics.h"
+	<cmath>
+
+1486948456 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Physics.h
+	<glm/glm.hpp>
 

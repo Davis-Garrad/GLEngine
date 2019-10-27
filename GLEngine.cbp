@@ -6,26 +6,6 @@
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
-			<Target title="Debug">
-				<Option output="bin/Debug/GLEngine" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="" />
-				<Option object_output="obj/Debug/" />
-				<Option type="2" />
-				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-std=c++14" />
-					<Add option="-g" />
-				</Compiler>
-				<Linker>
-					<Add option="-lSDL2" />
-					<Add option="-lSDL2_ttf" />
-					<Add option="-lSDL2_mixer" />
-					<Add option="-lGL" />
-					<Add option="-lGLEW" />
-				</Linker>
-			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/GLEngine" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="" />
@@ -58,6 +38,8 @@
 			<Add option="-lSDL2_mixer" />
 			<Add option="-lGL" />
 			<Add option="-lGLEW" />
+			<Add option="-lboost_system" />
+			<Add option="-lboost_thread" />
 		</Linker>
 		<Unit filename="AudioEngine.cpp" />
 		<Unit filename="AudioEngine.h" />
@@ -65,6 +47,7 @@
 		<Unit filename="Camera2D.h" />
 		<Unit filename="DebugRenderer.cpp" />
 		<Unit filename="DebugRenderer.h" />
+		<Unit filename="Errors.h" />
 		<Unit filename="GLEngine.cpp" />
 		<Unit filename="GLEngine.h" />
 		<Unit filename="GLEngineErrors.cpp" />

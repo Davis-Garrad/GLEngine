@@ -1,10 +1,9 @@
 #include "Physics.h"
 
 #include <cmath>
-#include <iostream>
 
 namespace GLEngine {
-	
+
 	bool Physics::circleCollision(glm::vec2 colliderPos, glm::vec2 targetPos, float colliderWidth) {
 
 		float distance = glm::distance(colliderPos, targetPos);

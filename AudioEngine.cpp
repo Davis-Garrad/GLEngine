@@ -11,8 +11,12 @@ namespace GLEngine {
         }
     }
 
-    void Music::play(int loops /* = -1 */) {
+    void Music::play(int loops /* = 1 */) {
         Mix_PlayMusic(m_music, loops);
+    }
+
+    void Music::fadeIn(int timeMs, int loops /* = 1 */) {
+        Mix_FadeInMusic(m_music, loops, timeMs);
     }
 
     void Music::pause() {
@@ -21,6 +25,10 @@ namespace GLEngine {
 
     void Music::stop() {
         Mix_HaltMusic();
+    }
+
+    void fadeOut(int timeMs) {
+        Mix_FadeOutMusic(timeMs);
     }
 
     void Music::resume() {
