@@ -23,7 +23,7 @@ namespace GLEngine {
 
     //Initializes the sprite VBO. x, y, width, and height are
     //in the normalized device coordinate space. so, [-1, 1]
-    void Sprite::init(float x, float y, float width, float height, std::string texturePath, glm::vec3 light/* = glm::vec3(1.0f, 1.0f, 1.0f)*/) {
+    void Sprite::init(float x, float y, float width, float height, std::string texturePath, glm::vec4 cornerLightValues) {
         //Set up our private vars
         _x = x;
         _y = y;
@@ -45,38 +45,28 @@ namespace GLEngine {
         //First Triangle
         vertexData[0].setPosition(x + width, y + height);
         vertexData[0].setUV(1.0f, 1.0f);
-        vertexData[0].setLight(light.r, light.g, light.b);
+        vertexData[0].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         vertexData[1].setPosition(x, y + height);
         vertexData[1].setUV(0.0f, 1.0f);
-        vertexData[1].setLight(light.r, light.g, light.b);
+        vertexData[1].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         vertexData[2].setPosition(x, y);
         vertexData[2].setUV(0.0f, 0.0f);
-        vertexData[2].setLight(light.r, light.g, light.b);
+        vertexData[2].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         //Second Triangle
         vertexData[3].setPosition(x, y);
         vertexData[3].setUV(0.0f, 0.0f);
-        vertexData[3].setLight(light.r, light.g, light.b);
+        vertexData[3].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         vertexData[4].setPosition(x + width, y);
         vertexData[4].setUV(1.0f, 0.0f);
-        vertexData[4].setLight(light.r, light.g, light.b);
+        vertexData[4].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         vertexData[5].setPosition(x + width, y + height);
         vertexData[5].setUV(1.0f, 1.0f);
-        vertexData[5].setLight(light.r, light.g, light.b);
-
-        /*//Set all vertex colors to magenta
-        for (int i = 0; i < 6; i++) {
-            vertexData[4].setColour(255, 0, 255, 255);
-        }
-
-        vertexData[4].setColour(0, 0, 255, 255);
-
-        vertexData[4].setColour(0, 255, 0, 255);*/
-
+        vertexData[5].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         //Tell opengl to bind our vertex buffer object
         glBindBuffer(GL_ARRAY_BUFFER, _vboID);
@@ -108,7 +98,7 @@ namespace GLEngine {
         //This is the UV attribute pointer
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
         //This is the light attribute pointer
-        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, light));
+        glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, light));
 
         //Draw the 6 vertices to the screen
         glDrawArrays(GL_TRIANGLES, 0, 6);

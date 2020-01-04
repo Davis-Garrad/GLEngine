@@ -210,7 +210,7 @@ void GLEngine::GUI::onSDLEvent(SDL_Event& evnt) {
             break;
         case SDL_TEXTINPUT:
             codePoint = 0;
-            // TODO: This is wrong! We need to decode utf-8 and convert to utf-32.
+            /// TODO: This is wrong! We need to decode utf-8 and convert to utf-32.
             // Thanks to Spartan190 for figuring this out. You need to get a utf conversion library
             // or function that can convert the text, such as from UTF8-CPP: http://utfcpp.sourceforge.net/
             // If you use UTF8-CPP just use this code and it should work:

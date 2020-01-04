@@ -14,7 +14,7 @@ namespace GLEngine {
         Sprite();
         ~Sprite();
 
-        void init(float x, float y, float width, float height, std::string texturePath, glm::vec3 light = glm::vec3(1.0f, 1.0f, 1.0f));
+        void init(float x, float y, float width, float height, std::string texturePath, glm::vec4 cornerLightValues);
 
         void draw();
 

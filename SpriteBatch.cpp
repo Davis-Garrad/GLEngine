@@ -5,32 +5,32 @@
 namespace GLEngine {
 
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec3 light) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec4 light) :
         texture(Texture),
         depth(Depth) {
 
         topLeft.color = color;
         topLeft.setPosition(destRect.x, destRect.y + destRect.w);
         topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
-        topLeft.setLight(light.r, light.g, light.b);
+        topLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomLeft.color = color;
         bottomLeft.setPosition(destRect.x, destRect.y);
         bottomLeft.setUV(uvRect.x, uvRect.y);
-        bottomLeft.setLight(light.r, light.g, light.b);
+        bottomLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomRight.color = color;
         bottomRight.setPosition(destRect.x + destRect.z, destRect.y);
         bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
-        bottomRight.setLight(light.r, light.g, light.b);
+        bottomRight.setLight(light.x, light.y, light.z, light.w);
 
         topRight.color = color;
         topRight.setPosition(destRect.x + destRect.z, destRect.y + destRect.w);
         topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
-        topRight.setLight(light.r, light.g, light.b);
+        topRight.setLight(light.x, light.y, light.z, light.w);
     }
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light) :
         texture(Texture),
         depth(Depth) {
 
@@ -51,25 +51,25 @@ namespace GLEngine {
         topLeft.color = color;
         topLeft.setPosition(destRect.x + tl.x, destRect.y + tl.y);
         topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
-        topLeft.setLight(light.r, light.g, light.b);
+        topLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomLeft.color = color;
         bottomLeft.setPosition(destRect.x + bl.x, destRect.y + bl.y);
         bottomLeft.setUV(uvRect.x, uvRect.y);
-        bottomLeft.setLight(light.r, light.g, light.b);
+        bottomLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomRight.color = color;
         bottomRight.setPosition(destRect.x + br.x, destRect.y + br.y);
         bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
-        bottomRight.setLight(light.r, light.g, light.b);
+        bottomRight.setLight(light.x, light.y, light.z, light.w);
 
         topRight.color = color;
         topRight.setPosition(destRect.x + tr.x, destRect.y + tr.y);
         topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
-        topRight.setLight(light.r, light.g, light.b);
+        topRight.setLight(light.x, light.y, light.z, light.w);
     }
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec3 light, const glm::vec2& pointOfRotation) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light, const glm::vec2& pointOfRotation) :
         texture(Texture),
         depth(Depth) {
 
@@ -91,22 +91,22 @@ namespace GLEngine {
         topLeft.color = color;
         topLeft.setPosition(destRect.x + tl.x, destRect.y + tl.y);
         topLeft.setUV(uvRect.x, uvRect.y + uvRect.w);
-        topLeft.setLight(light.r, light.g, light.b);
+        topLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomLeft.color = color;
         bottomLeft.setPosition(destRect.x + bl.x, destRect.y + bl.y);
         bottomLeft.setUV(uvRect.x, uvRect.y);
-        bottomLeft.setLight(light.r, light.g, light.b);
+        bottomLeft.setLight(light.x, light.y, light.z, light.w);
 
         bottomRight.color = color;
         bottomRight.setPosition(destRect.x + br.x, destRect.y + br.y);
         bottomRight.setUV(uvRect.x + uvRect.z, uvRect.y);
-        bottomRight.setLight(light.r, light.g, light.b);
+        bottomRight.setLight(light.x, light.y, light.z, light.w);
 
         topRight.color = color;
         topRight.setPosition(destRect.x + tr.x, destRect.y + tr.y);
         topRight.setUV(uvRect.x + uvRect.z, uvRect.y + uvRect.w);
-        topRight.setLight(light.r, light.g, light.b);
+        topRight.setLight(light.x, light.y, light.z, light.w);
     }
 
     glm::vec2 Glyph::rotatePoint(const glm::vec2& pos, float angle) {
@@ -159,20 +159,20 @@ void SpriteBatch::end() {
     createRenderBatches();
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec3 light) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, light);
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec4 verticesLight) {
+    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, verticesLight);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec3 light, const glm::vec2& pointOfRotation) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light, pointOfRotation);
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
+    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, verticesLight, pointOfRotation);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec3 light, const glm::vec2& pointOfRotation) {
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
     const glm::vec2 right(1.0f, 0.0f);
     float angle = acos(glm::dot(right, dir));
     if (dir.y < 0.0f) angle = -angle;
 
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, light, pointOfRotation);
+    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, verticesLight, pointOfRotation);
 }
 
 void SpriteBatch::renderBatch() {
@@ -275,7 +275,7 @@ void SpriteBatch::createVertexArray() {
     //This is the UV attribute pointer
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
     //This is the light attribute pointer
-    glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, light));
+    glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, light));
 
     glBindVertexArray(0);
 

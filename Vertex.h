@@ -25,7 +25,7 @@ namespace GLEngine {
     };
 
     struct Light {
-        float r = 1.0f, g = 1.0f, b = 1.0f;
+        float tl = 1.0f, tr = 1.0f, br = 1.0f, bl = 1.0f; // For each of the corners (TODO: Add different colour lights)
     };
 
     //The vertex definition
@@ -62,10 +62,11 @@ namespace GLEngine {
             uv.v = v;
         }
 
-        void setLight(float r, float g, float b) {
-            light.r = r;
-            light.g = g;
-            light.b = b;
+        void setLight(float tl, float tr, float br, float bl) {
+            light.tl = tl;
+            light.tr = tr;
+            light.bl = bl;
+            light.br = br;
         }
     };
 
