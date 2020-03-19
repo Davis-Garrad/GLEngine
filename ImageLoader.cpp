@@ -28,12 +28,12 @@ namespace GLEngine {
         }
 
         //Generate the openGL texture object
-        glGenTextures(1, &(texture.id));
+        glGenTextures((GLsizei)1, &(texture.id));
 
         //Bind the texture object
         glBindTexture(GL_TEXTURE_2D, texture.id);
         //Upload the pixels to the texture
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &(out[0]));
+        glTexImage2D(GL_TEXTURE_2D, (GLint)0, GL_RGBA, (GLsizei)width, (GLsizei)height, (GLint)0, GL_RGBA, GL_UNSIGNED_BYTE, &(out[0]));
 
         //Set some texture parameters
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -45,7 +45,7 @@ namespace GLEngine {
         glGenerateMipmap(GL_TEXTURE_2D);
 
         //Unbind the texture
-        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindTexture(GL_TEXTURE_2D, (GLuint)0);
 
         texture.width = width;
         texture.height = height;

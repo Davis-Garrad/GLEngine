@@ -20,10 +20,11 @@ enum class GlyphSortType {
 class Glyph {
 public:
     Glyph() {};
-    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec4 light);
-    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light);
-    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light, const glm::vec2& pointOfRotation);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, glm::vec4 light);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light);
+    Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light, const glm::vec2& pointOfRotation);
 
+    GLuint bumpMap;
     GLuint texture;
     float depth;
 
@@ -39,12 +40,13 @@ private:
 // Each render batch is used for a single draw call
 class RenderBatch {
 public:
-    RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture) : offset(Offset),
-        numVertices(NumVertices), texture(Texture) {
+    RenderBatch(GLuint Offset, GLuint NumVertices, GLuint Texture, GLuint bumpMapTexture) : offset(Offset),
+        numVertices(NumVertices), texture(Texture), bumpMap(bumpMapTexture) {
     }
     GLuint offset;
     GLuint numVertices;
     GLuint texture;
+    GLuint bumpMap;
 };
 
 // The SpriteBatch class is a more efficient way of drawing sprites
@@ -65,11 +67,11 @@ public:
     void end();
 
     // Adds a glyph to the spritebatch
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec4 verticesLight = glm::vec4(1.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, glm::vec4 verticesLight = glm::vec4(1.0f));
     // Adds a glyph to the spritebatch with rotation
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec4 verticesLight = glm::vec4(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, float angle, glm::vec4 verticesLight = glm::vec4(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
     // Adds a glyph to the spritebatch with rotation
-    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight = glm::vec4(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
+    void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight = glm::vec4(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
 
     // Renders the entire SpriteBatch to the screen
     void renderBatch();

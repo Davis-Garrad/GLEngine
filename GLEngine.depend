@@ -31,7 +31,7 @@
 	<string>
 	<GL/glew.h>
 
-1578105198 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Vertex.h
+1584466034 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Vertex.h
 	<GL/glew.h>
 
 1562364617 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngine.cpp
@@ -76,7 +76,7 @@
 	<glm/glm.hpp>
 	<SDL2/SDL_events.h>
 
-1519245450 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ImageLoader.cpp
+1584463001 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ImageLoader.cpp
 	"ImageLoader.h"
 	"picoPNG.h"
 	"IOManager.h"
@@ -130,7 +130,7 @@
 	<experimental/filesystem>
 	<fstream>
 
-1519248150 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.cpp
+1584467613 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.cpp
 	"ParticleBatch2D.h"
 
 1564678251 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/ParticleBatch2D.h
@@ -140,7 +140,7 @@
 	"SpriteBatch.h"
 	"GLTexture.h"
 
-1577474997 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
+1584467468 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -172,19 +172,19 @@
 	"ScreenList.h"
 	"IGameScreen.h"
 
-1541308085 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
+1578105331 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
 	"Sprite.h"
 	"Vertex.h"
 	"ResourceManager.h"
 	<cstddef>
 
-1541308079 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.h
+1578105240 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.h
 	<GL/glew.h>
 	"GLTexture.h"
 	<string>
 	<glm/glm.hpp>
 
-1578105307 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
+1584467424 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
 	"SpriteBatch.h"
 	<algorithm>
 

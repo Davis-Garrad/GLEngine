@@ -254,7 +254,7 @@ namespace GLEngine {
                 if (gi < 0 || gi >= _regLength)
                     gi = _regLength;
                 glm::vec4 destRect(tp, _glyphs[gi].size * scaling);
-                batch.draw(destRect, _glyphs[gi].uvRect, _texID, depth, tint);
+                batch.draw(destRect, _glyphs[gi].uvRect, _texID, 0, depth, tint);
                 tp.x += _glyphs[gi].size.x * scaling.x;
             }
         }

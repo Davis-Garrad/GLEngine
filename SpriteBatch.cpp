@@ -5,8 +5,9 @@
 namespace GLEngine {
 
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, glm::vec4 light) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, glm::vec4 light) :
         texture(Texture),
+        bumpMap(bumpMapTexture),
         depth(Depth) {
 
         topLeft.color = color;
@@ -30,8 +31,9 @@ namespace GLEngine {
         topRight.setLight(light.x, light.y, light.z, light.w);
     }
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light) :
         texture(Texture),
+        bumpMap(bumpMapTexture),
         depth(Depth) {
 
         glm::vec2 halfDims(destRect.z / 2.0f, destRect.w / 2.0f);
@@ -69,8 +71,9 @@ namespace GLEngine {
         topRight.setLight(light.x, light.y, light.z, light.w);
     }
 
-    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light, const glm::vec2& pointOfRotation) :
+    Glyph::Glyph(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint Texture, GLuint bumpMapTexture, float Depth, const ColourRGBA8& color, float angle, glm::vec4 light, const glm::vec2& pointOfRotation) :
         texture(Texture),
+        bumpMap(bumpMapTexture),
         depth(Depth) {
 
         glm::vec2 centrePoint = glm::vec2(destRect.z, destRect.w) * pointOfRotation;
@@ -159,20 +162,20 @@ void SpriteBatch::end() {
     createRenderBatches();
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, glm::vec4 verticesLight) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, verticesLight);
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, glm::vec4 verticesLight) {
+    _glyphs.emplace_back(destRect, uvRect, texture, bumpMapTexture, depth, color, verticesLight);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, float angle, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, verticesLight, pointOfRotation);
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, float angle, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
+    _glyphs.emplace_back(destRect, uvRect, texture, bumpMapTexture, depth, color, angle, verticesLight, pointOfRotation);
 }
 
-void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
+void SpriteBatch::draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight, const glm::vec2& pointOfRotation) {
     const glm::vec2 right(1.0f, 0.0f);
     float angle = acos(glm::dot(right, dir));
     if (dir.y < 0.0f) angle = -angle;
 
-    _glyphs.emplace_back(destRect, uvRect, texture, depth, color, angle, verticesLight, pointOfRotation);
+    _glyphs.emplace_back(destRect, uvRect, texture, bumpMapTexture, depth, color, angle, verticesLight, pointOfRotation);
 }
 
 void SpriteBatch::renderBatch() {
@@ -183,8 +186,13 @@ void SpriteBatch::renderBatch() {
 
     for (size_t i = 0; i < _renderBatches.size(); i++) {
         glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
+        if(_renderBatches[i].bumpMap) {
+            glActiveTexture(GL_TEXTURE1);
+            glBindTexture(GL_TEXTURE_2D, _renderBatches[i].bumpMap);
+            glActiveTexture(GL_TEXTURE0);
+        }
 
-        glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
+        glDrawArrays(GL_TRIANGLES, (GLint)_renderBatches[i].offset, (GLsizei)_renderBatches[i].numVertices);
     }
 
     glBindVertexArray(0);
@@ -205,7 +213,7 @@ void SpriteBatch::createRenderBatches() {
     int cv = 0; // current vertex
 
     //Add the first batch
-    _renderBatches.emplace_back(offset, 6, _glyphPointers[0]->texture);
+    _renderBatches.emplace_back(offset, 6, _glyphPointers[0]->texture, _glyphPointers[0]->bumpMap);
     vertices[cv++] = _glyphPointers[0]->topLeft;
     vertices[cv++] = _glyphPointers[0]->bottomLeft;
     vertices[cv++] = _glyphPointers[0]->bottomRight;
@@ -220,7 +228,7 @@ void SpriteBatch::createRenderBatches() {
         // Check if this glyph can be part of the current batch
         if (_glyphPointers[cg]->texture != _glyphPointers[cg - 1]->texture) {
             // Make a new batch
-            _renderBatches.emplace_back(offset, 6, _glyphPointers[cg]->texture);
+            _renderBatches.emplace_back(offset, 6, _glyphPointers[cg]->texture, _glyphPointers[cg]->bumpMap);
         } else {
             // If its part of the current batch, just increase numVertices
             _renderBatches.back().numVertices += 6;
@@ -267,6 +275,7 @@ void SpriteBatch::createVertexArray() {
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
     glEnableVertexAttribArray(3); // Light
+    glEnableVertexAttribArray(4); // Depthmap
 
     //This is the position attribute pointer
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, position));
@@ -276,6 +285,8 @@ void SpriteBatch::createVertexArray() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, uv));
     //This is the light attribute pointer
     glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, light));
+    //This is the depthmap attribute pointer
+    glVertexAttribPointer(4, 1, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(Vertex), (void*)offsetof(Vertex, depth));
 
     glBindVertexArray(0);
 

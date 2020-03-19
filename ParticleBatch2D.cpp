@@ -40,7 +40,7 @@ namespace GLEngine {
             auto& p = m_particles[i];
             if (p.life > 0.0f) {
                 glm::vec4 destRect(p.position.x, p.position.y, p.width, p.width);
-                spriteBatch->draw(destRect, uvRect, m_texture.id, 0.0f, p.color);
+                spriteBatch->draw(destRect, uvRect, m_texture.id, 0, 0.0f, p.color);
             }
         }
     }

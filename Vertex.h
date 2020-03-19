@@ -38,6 +38,8 @@ namespace GLEngine {
 
         //4 bytes for r g b a color.
         ColourRGBA8 color;
+        // 1 byte for depth
+        float depth;
 
         //UV texture coordinates.
         UV uv;
