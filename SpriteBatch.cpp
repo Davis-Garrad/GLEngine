@@ -4,6 +4,8 @@
 
 #include "GLEngineErrors.h"
 
+#include <iostream>
+
 namespace GLEngine {
 
 
@@ -121,7 +123,7 @@ namespace GLEngine {
         return newv;
     }
 
-SpriteBatch::SpriteBatch() : _vbo(0), _vao(0)
+SpriteBatch::SpriteBatch() : _vbo(0), _vao(0), m_fbo(0)
 {
 }
 
@@ -131,9 +133,15 @@ SpriteBatch::~SpriteBatch()
 
 void SpriteBatch::init() {
     createVertexArray();
+    initializeFramebuffer();
 }
 
 void SpriteBatch::dispose() {
+    if(m_fbo != 0) {
+        glDeleteFramebuffers(1, &m_fbo);
+        glDeleteTextures(1, &m_fboTexture);
+        m_fbo = 0;
+    }
     if (_vao != 0) {
         glDeleteVertexArrays(1, &_vao);
         _vao = 0;
@@ -144,7 +152,9 @@ void SpriteBatch::dispose() {
     }
 }
 
-void SpriteBatch::begin(GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
+void SpriteBatch::begin(bool useFBO/* = false*/, GlyphSortType sortType /* GlyphSortType::TEXTURE */) {
+    m_usedFBO = useFBO;
+
     _sortType = sortType;
     _renderBatches.clear();
 
@@ -184,20 +194,82 @@ void SpriteBatch::renderBatch() {
 
     // Bind our VAO. This sets up the opengl state we need, including the
     // vertex attribute pointers and it binds the VBO
+    /*if(m_usedFBO) {
+        glBindFramebuffer(GL_FRAMEBUFFER, m_fbo); // Activate FBO
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, m_fboTexture);
+        glViewport(0, 0, 640, 480);
+    }*/
+
+    if(m_usedFBO) {
+        bindFramebuffer();
+    }
+
     glBindVertexArray(_vao);
 
     for (size_t i = 0; i < _renderBatches.size(); i++) {
         glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
         if(_renderBatches[i].bumpMap) {
-            glActiveTexture(GL_TEXTURE1);
+            glActiveTexture(GL_TEXTURE1); // Set active texture to 1 to bind the bumpMap texture there.
             glBindTexture(GL_TEXTURE_2D, _renderBatches[i].bumpMap);
-            glActiveTexture(GL_TEXTURE0);
+            glActiveTexture(GL_TEXTURE0); // Set active texture to 0 to draw the arrays (the actual texture) to 0
         }
 
         glDrawArrays(GL_TRIANGLES, (GLint)_renderBatches[i].offset, (GLsizei)_renderBatches[i].numVertices);
     }
 
     glBindVertexArray(0);
+
+    if(m_usedFBO)
+        unbindFramebuffer();
+}
+
+void SpriteBatch::renderFBO() {
+    // Assuming renderBatch has already been called to draw to the FBO, the FBO will simply draw it to the screen.
+
+    /*glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glActiveTexture(GL_TEXTURE0); // Set to screen FBO
+    //glBindVertexArray(0);*/
+
+    // Render a big ol' rectangle with the bound texture (m_fboTexture).
+    // Bind the texture. Easy.
+    /*glBindTexture(GL_TEXTURE_2D, m_fboTexture);
+
+    // Define the vertices. Easy.
+    float quadVertices[] = {
+        // positions   // texCoords
+        -1.0f,  1.0f,  0.0f, 1.0f,
+        -1.0f, -1.0f,  0.0f, 0.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+
+        -1.0f,  1.0f,  0.0f, 1.0f,
+         1.0f, -1.0f,  1.0f, 0.0f,
+         1.0f,  1.0f,  1.0f, 1.0f
+    };
+
+    glBindVertexArray(_vao);
+    glDrawArrays(GL_TRIANGLES, 0, 6);*/
+
+    // Blit the framebuffer from this one to the main one!
+    int screenDims[4];
+    glGetIntegerv(GL_VIEWPORT, screenDims);
+
+    // Bind our FBO to GL_READ_FRAMEBUFFER and the screen can stay as 0 (the default)
+    // So all we need to do is bind our FBO as GL_READ_FRAMEBUFFER
+    glBindFramebuffer(GL_READ_FRAMEBUFFER, m_fbo);
+
+    glBlitFramebuffer(0, 0, screenDims[2], screenDims[3], 0, 0, screenDims[2] / 2, screenDims[3] / 2, GL_COLOR_BUFFER_BIT, GL_LINEAR);
+}
+
+void SpriteBatch::renderFBOExperimental() {
+    bindFramebuffer();
+
+    glBindVertexArray(_vao);
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
+
+    unbindFramebuffer();
 }
 
 void SpriteBatch::createRenderBatches() {
@@ -256,15 +328,35 @@ void SpriteBatch::createRenderBatches() {
 
 }
 
-void SpriteBatch::createFramebuffer() {
-    // Generate the FBO if it isn't already.
-    if(m_fbo == 0) {
-        glGenFramebuffers(1 ,&m_fbo);
+void SpriteBatch::initializeFramebuffer() {
+    createFramebuffer();
+    createTextureAttachmentForFBO();
+
+    // Check that everything is good
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        fatalError("Framebuffer could not be created!");
     }
 
+    unbindFramebuffer();
+}
+
+void SpriteBatch::createFramebuffer() {
+    // Generate the FBO if it isn't already.
+    // We need to generate, bind, and attach an attachment to this.
+
+    // Generate. Easy.
+    if(m_fbo == 0) {
+        glGenFramebuffers(1, &m_fbo);
+    }
+
+    // Bind. Easy.
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
-    glGenTextures(1, &m_fboTexture);
+    // Attach. Easy.
+    GLenum bufs[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, bufs);
+
+    /*glGenTextures(1, &m_fboTexture);
     glBindTexture(GL_TEXTURE_2D, m_fboTexture);
 
     // Get window size
@@ -280,16 +372,47 @@ void SpriteBatch::createFramebuffer() {
                                                                         /// DEPTH BUFFER?
 
     // Attach the texture:
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_fboTexture, 0);*/
+}
+
+void SpriteBatch::createTextureAttachmentForFBO() {
+    // Generate and bind a texture object
+    glGenTextures(1, &m_fboTexture);
+    glBindTexture(GL_TEXTURE_2D, m_fboTexture);
+
+    // Initialize the texture. It will be the screen's size, holding RGB values.
+    int screenDims[4];
+    glGetIntegerv(GL_VIEWPORT, screenDims);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, screenDims[2], screenDims[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+
+    // Initialize the textures's magnification and minimization functions
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+    // Make the attachment to the FBO
     glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_fboTexture, 0);
 
-    // Set list of draw buffers (where data will be "drawn" to):
-    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
-    glDrawBuffers(1, drawBuffers);
+    // Unbind
+    glBindTexture(GL_TEXTURE_2D, 0);
 
-    // Check that everything is good
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        fatalError("Framebuffer could not be created!");
-    }
+    // E-Z.
+    /// TODO: Make depth filter. (https://www.youtube.com/watch?v=21UsMuFTN0k) Good man.
+}
+
+void SpriteBatch::bindFramebuffer() {
+    glBindTexture(GL_TEXTURE_2D, 0); // Make sure it's unbound
+    glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+}
+
+
+void SpriteBatch::unbindFramebuffer() {
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+}
+
+void SpriteBatch::clearFramebuffer() {
+    bindFramebuffer();
+    glClear(GL_COLOR_BUFFER_BIT);
+    unbindFramebuffer();
 }
 
 void SpriteBatch::createVertexArray() {

@@ -61,7 +61,7 @@ public:
     void dispose();
 
     // Begins the spritebatch
-    void begin(GlyphSortType sortType = GlyphSortType::FRONT_TO_BACK);
+    void begin(bool useFBO = false, GlyphSortType sortType = GlyphSortType::FRONT_TO_BACK);
 
     // Ends the spritebatch
     void end();
@@ -73,15 +73,35 @@ public:
     // Adds a glyph to the spritebatch with rotation
     void draw(const glm::vec4& destRect, const glm::vec4& uvRect, GLuint texture, GLuint bumpMapTexture, float depth, const ColourRGBA8& color, const glm::vec2& dir, glm::vec4 verticesLight = glm::vec4(1.0f), const glm::vec2& pointOfRotation = glm::vec2(0.0f));
 
-    // Renders the entire SpriteBatch to the screen
+    // Renders the entire SpriteBatch to the screen (regular way)
     void renderBatch();
+
+    // Renders the FBO to the screen.
+    void renderFBO();
+    // Draws with glDrawArrays
+    void renderFBOExperimental();
+
+    GLuint getFBO() { return m_fbo; }
+    GLuint getFBOTexture() { return m_fboTexture; }
+
+    void clearFramebuffer();
+
+    // Bind/Unbind the proper texture and framebuffer
+    void bindFramebuffer();
+    void unbindFramebuffer();
 
 private:
     // Creates all the needed RenderBatches
     void createRenderBatches();
 
+
+    void initializeFramebuffer();
     // Generates our FBO
     void createFramebuffer();
+    // Creates a texture attachment for the FBO.
+    void createTextureAttachmentForFBO();
+
+
     // Generates our VAO and VBO
     void createVertexArray();
 
@@ -99,6 +119,8 @@ private:
     GLuint m_fboTexture;
 
     GlyphSortType _sortType;
+
+    bool m_usedFBO = false;
 
     std::vector<Glyph*> _glyphPointers; ///< This is for sorting
     std::vector<Glyph> _glyphs; ///< These are the actual glyphs

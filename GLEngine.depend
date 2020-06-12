@@ -143,7 +143,7 @@
 	"GLTexture.h"
 	"ResourceManager.h"
 
-1591930673 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
+1591946557 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -190,9 +190,11 @@
 	<string>
 	<glm/glm.hpp>
 
-1591905233 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
+1591946275 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
 	"SpriteBatch.h"
 	<algorithm>
+	"GLEngineErrors.h"
+	<iostream>
 
 1586191322 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteFont.cpp
 	"SpriteFont.h"
