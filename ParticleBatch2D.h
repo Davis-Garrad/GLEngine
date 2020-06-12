@@ -5,6 +5,7 @@
 #include "Vertex.h"
 #include "SpriteBatch.h"
 #include "GLTexture.h"
+#include "ResourceManager.h"
 
 namespace GLEngine {
 
@@ -27,25 +28,31 @@ namespace GLEngine {
         ParticleBatch2D();
         ParticleBatch2D(int maxParticles,
                         float decayRate,
-                        GLTexture texture,
-                        std::function<void(Particle2D&, float)> updateFunc = defaultParticleUpdate) { init(maxParticles, decayRate, texture, updateFunc); }
+                        std::string& texture,
+                        std::string& bumpMap,
+                        std::function<void(Particle2D&, float)> updateFunc = defaultParticleUpdate) { init(maxParticles, decayRate, texture, bumpMap, updateFunc); }
         ~ParticleBatch2D();
 
-        void init(int maxParticles,
-                  float decayRate,
-                  GLTexture texture,
-                  std::function<void(Particle2D&, float)> updateFunc = defaultParticleUpdate);
+        void setBumpMap(std::string& bumpMap) { m_bumpMap.filePath = bumpMap; }
 
         void update(float deltaTime);
 
-        void draw(SpriteBatch* spriteBatch);
+        void draw(SpriteBatch* spriteBatch, float depth);
 
-        void addParticle(const glm::vec2& position,
+        Particle2D* addParticle(const glm::vec2& position,
                          const glm::vec2& velocity,
                          const ColourRGBA8& color,
                          float width);
 
+        GLTexture getTexture() { return m_texture; }
+
     private:
+        void init(int maxParticles,
+                  float decayRate,
+                  std::string& texture,
+                  std::string& bumpMap,
+                  std::function<void(Particle2D&, float)> updateFunc = defaultParticleUpdate);
+
         int findFreeParticle();
 
         std::function<void(Particle2D&, float)> m_updateFunc; ///< Function pointer for custom updates
@@ -54,6 +61,7 @@ namespace GLEngine {
         int m_maxParticles = 0;
         int m_lastFreeParticle = 0;
         GLTexture m_texture;
+        GLTexture m_bumpMap;
     };
 
 }

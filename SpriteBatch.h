@@ -61,7 +61,7 @@ public:
     void dispose();
 
     // Begins the spritebatch
-    void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
+    void begin(GlyphSortType sortType = GlyphSortType::FRONT_TO_BACK);
 
     // Ends the spritebatch
     void end();
@@ -80,6 +80,8 @@ private:
     // Creates all the needed RenderBatches
     void createRenderBatches();
 
+    // Generates our FBO
+    void createFramebuffer();
     // Generates our VAO and VBO
     void createVertexArray();
 
@@ -93,6 +95,8 @@ private:
 
     GLuint _vbo;
     GLuint _vao;
+    GLuint m_fbo;
+    GLuint m_fboTexture;
 
     GlyphSortType _sortType;
 

@@ -1,14 +1,9 @@
 #include "IOManager.h"
 
-#ifndef WINDOWS
-    #include <experimental/filesystem>
-#endif // WINDOWS
 #include <fstream>
+#include <boost/filesystem.hpp>
 
-// Namespace alias
-#ifndef WINDOWS
-namespace fs = std::experimental::filesystem::v1;
-#endif // WINDOWS
+namespace fs = boost::filesystem;
 
 namespace GLEngine {
 

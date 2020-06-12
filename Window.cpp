@@ -2,6 +2,7 @@
 #include "GLEngineErrors.h"
 
 #include <iostream>
+#include <SDL2/SDL_video.h>
 
 namespace GLEngine {
 
@@ -28,7 +29,8 @@ namespace GLEngine {
             flags |= SDL_WINDOW_BORDERLESS;
         }
 
-        //Open an SDL window
+
+        // Set SDL Attributes
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3.2); // Sets the OpenGL context attribute (minimum version) to 3.2
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4.5); // Sets the OpenGL context attribute (maximum version) to 4.5
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // Set the OpenGL context to be the core version
@@ -36,7 +38,8 @@ namespace GLEngine {
 
         _sdlWindow = SDL_CreateWindow(m_windowTitle.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, _screenWidth, _screenHeight, flags);
         if (_sdlWindow == nullptr) {
-            fatalError("SDL Window could not be created!");
+            std::string errCode = "SDL Window could not be created! SDL Throws Error:\n" + std::string(SDL_GetError());
+            fatalError(errCode);
         }
 
         glewExperimental = GL_TRUE; // Make sure we can use experimental drivers and features, such as making a core context
@@ -44,7 +47,8 @@ namespace GLEngine {
         //Set up our OpenGL context
         m_glContext = SDL_GL_CreateContext(_sdlWindow);
         if (m_glContext == nullptr) {
-            fatalError("SDL_GL context could not be created!");
+            std::string errCode = "SDL_GL context could not be created! SDL Throws Error:\n" + std::string(SDL_GetError());
+            fatalError(errCode);
         }
 
         //Set up glew (optional but recommended)

@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include "GLEngineErrors.h"
+
 namespace GLEngine {
 
 
@@ -252,6 +254,42 @@ void SpriteBatch::createRenderBatches() {
     // Unbind the VBO
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+}
+
+void SpriteBatch::createFramebuffer() {
+    // Generate the FBO if it isn't already.
+    if(m_fbo == 0) {
+        glGenFramebuffers(1 ,&m_fbo);
+    }
+
+    glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
+
+    glGenTextures(1, &m_fboTexture);
+    glBindTexture(GL_TEXTURE_2D, m_fboTexture);
+
+    // Get window size
+    GLint winSize[4]; // x, y, w, h
+    glGetIntegerv(GL_VIEWPORT, winSize);
+
+    glTexImage2D(GL_TEXTURE_2D, 0,GL_RGBA, winSize[2], winSize[3], 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+
+    // Filtering operations (minimization and magnification)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+                                                                        /// DEPTH BUFFER?
+
+    // Attach the texture:
+    glFramebufferTexture(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, m_fboTexture, 0);
+
+    // Set list of draw buffers (where data will be "drawn" to):
+    GLenum drawBuffers[1] = { GL_COLOR_ATTACHMENT0 };
+    glDrawBuffers(1, drawBuffers);
+
+    // Check that everything is good
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        fatalError("Framebuffer could not be created!");
+    }
 }
 
 void SpriteBatch::createVertexArray() {
