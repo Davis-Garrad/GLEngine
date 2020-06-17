@@ -49,6 +49,43 @@ public:
     GLuint bumpMap;
 };
 
+void GLDebugMessageCallback(GLenum source, GLenum type, GLuint id,
+                            GLenum severity, GLsizei length,
+                            const GLchar *msg, const void *data);
+
+class FrameBufferObject {
+/*
+    The FrameBufferObject (FBO) class handles all OpenGL operations required for creating, writing to, and drawing FBOs.
+*/
+public:
+    FrameBufferObject();
+    ~FrameBufferObject();
+
+    // Initializes/disposes of the FBO object
+    void init(glm::vec4 destRect);
+    void dispose();
+
+    void begin(); // Bind FBO
+    void end(); // Unbind FBO
+
+    void draw(); // Draws the FBO to the screen. Needs a shader surrounding it.
+
+private:
+    void createFramebuffer(); // No need to worry, this calls createTextures.
+    void createTextures();
+    // Generates our VAO and VBO
+    void createVertexArray();
+
+    GLuint m_fbo;
+    GLuint m_colourTex;
+    GLuint m_depthTex;
+
+    GLuint m_vbo;
+    GLuint m_vao;
+
+    glm::vec4 m_destRect; // Viewport.
+};
+
 // The SpriteBatch class is a more efficient way of drawing sprites
 class SpriteBatch
 {
@@ -61,7 +98,7 @@ public:
     void dispose();
 
     // Begins the spritebatch
-    void begin(bool useFBO = false, GlyphSortType sortType = GlyphSortType::FRONT_TO_BACK);
+    void begin(GlyphSortType sortType = GlyphSortType::FRONT_TO_BACK);
 
     // Ends the spritebatch
     void end();
@@ -76,31 +113,9 @@ public:
     // Renders the entire SpriteBatch to the screen (regular way)
     void renderBatch();
 
-    // Renders the FBO to the screen.
-    void renderFBO();
-    // Draws with glDrawArrays
-    void renderFBOExperimental();
-
-    GLuint getFBO() { return m_fbo; }
-    GLuint getFBOTexture() { return m_fboTexture; }
-
-    void clearFramebuffer();
-
-    // Bind/Unbind the proper texture and framebuffer
-    void bindFramebuffer();
-    void unbindFramebuffer();
-
 private:
     // Creates all the needed RenderBatches
     void createRenderBatches();
-
-
-    void initializeFramebuffer();
-    // Generates our FBO
-    void createFramebuffer();
-    // Creates a texture attachment for the FBO.
-    void createTextureAttachmentForFBO();
-
 
     // Generates our VAO and VBO
     void createVertexArray();
@@ -115,12 +130,8 @@ private:
 
     GLuint _vbo;
     GLuint _vao;
-    GLuint m_fbo;
-    GLuint m_fboTexture;
 
     GlyphSortType _sortType;
-
-    bool m_usedFBO = false;
 
     std::vector<Glyph*> _glyphPointers; ///< This is for sorting
     std::vector<Glyph> _glyphs; ///< These are the actual glyphs

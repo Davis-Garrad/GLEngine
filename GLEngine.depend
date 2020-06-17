@@ -31,7 +31,7 @@
 	<string>
 	<GL/glew.h>
 
-1584466034 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Vertex.h
+1592280422 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Vertex.h
 	<GL/glew.h>
 
 1586191307 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLEngine.cpp
@@ -143,7 +143,7 @@
 	"GLTexture.h"
 	"ResourceManager.h"
 
-1591946557 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
+1592290766 /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.h
 	<GL/glew.h>
 	<glm/glm.hpp>
 	<vector>
@@ -178,7 +178,7 @@
 	"ScreenList.h"
 	"IGameScreen.h"
 
-1578105331 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
+1591985533 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/Sprite.cpp
 	"Sprite.h"
 	"Vertex.h"
 	"ResourceManager.h"
@@ -190,7 +190,7 @@
 	<string>
 	<glm/glm.hpp>
 
-1591946275 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
+1592290805 source:/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/SpriteBatch.cpp
 	"SpriteBatch.h"
 	<algorithm>
 	"GLEngineErrors.h"

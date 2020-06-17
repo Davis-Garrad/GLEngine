@@ -43,28 +43,28 @@ namespace GLEngine {
         Vertex vertexData[6];
 
         //First Triangle
-        vertexData[0].setPosition(x + width, y + height);
+        vertexData[0].setPosition(x + width, y + height, 0.0f);
         vertexData[0].setUV(1.0f, 1.0f);
         vertexData[0].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
-        vertexData[1].setPosition(x, y + height);
+        vertexData[1].setPosition(x, y + height, 0.0f);
         vertexData[1].setUV(0.0f, 1.0f);
         vertexData[1].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
-        vertexData[2].setPosition(x, y);
+        vertexData[2].setPosition(x, y, 0.0f);
         vertexData[2].setUV(0.0f, 0.0f);
         vertexData[2].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
         //Second Triangle
-        vertexData[3].setPosition(x, y);
+        vertexData[3].setPosition(x, y, 0.0f);
         vertexData[3].setUV(0.0f, 0.0f);
         vertexData[3].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
-        vertexData[4].setPosition(x + width, y);
+        vertexData[4].setPosition(x + width, y, 0.0f);
         vertexData[4].setUV(1.0f, 0.0f);
         vertexData[4].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 
-        vertexData[5].setPosition(x + width, y + height);
+        vertexData[5].setPosition(x + width, y + height, 0.0f);
         vertexData[5].setUV(1.0f, 1.0f);
         vertexData[5].setLight(cornerLightValues.x, cornerLightValues.y, cornerLightValues.z, cornerLightValues.w);
 

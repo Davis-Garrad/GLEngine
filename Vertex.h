@@ -7,6 +7,7 @@ namespace GLEngine {
     struct Position {
         float x;
         float y;
+        float z;
     };
 
     struct ColourRGBA8 {
@@ -38,18 +39,16 @@ namespace GLEngine {
 
         //4 bytes for r g b a color.
         ColourRGBA8 color;
-        // 1 byte for depth
-        float depth;
-
         //UV texture coordinates.
         UV uv;
 
         //lighting (0-1 is normal lighting, after that everything starts going the colour)
         Light light;
 
-        void setPosition(float x, float y) {
+        void setPosition(float x, float y, float d) {
             position.x = x;
             position.y = y;
+            position.z = d;
         }
 
         void setColour(GLubyte r, GLubyte g, GLubyte b, GLubyte a) {
