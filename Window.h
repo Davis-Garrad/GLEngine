@@ -13,7 +13,7 @@ namespace GLEngine {
         Window();
         ~Window();
 
-        int create(unsigned int currentFlags);
+        int create(unsigned int currentFlags, bool debug = false);
 
         void setScreenTitle(std::string newTitle) { m_windowTitle = newTitle; }
         void setScreenSize(int width, int height) { _screenWidth = width; _screenHeight = height; }

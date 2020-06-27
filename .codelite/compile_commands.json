@@ -1,0 +1,9 @@
+[{
+  "directory": "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine",
+  "command": "/usr/bin/g++ -O2 -Wall -std=c++14 -std=c++14 -I. -I. -MG -MP -MT./obj/Release/AudioEngine.cpp.o -MF./obj/Release/AudioEngine.cpp.o.d -MM AudioEngine.cpp",
+  "file": "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp"
+ }, {
+  "directory": "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine",
+  "command": "/usr/bin/g++ -c /home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp -O2 -Wall -std=c++14 -std=c++14 -o ./obj/Release/AudioEngine.cpp.o -I. -I.",
+  "file": "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp"
+ }]
