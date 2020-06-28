@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CodeLite_Project Name="GLEngine" Version="10.0.0">
+<CodeLite_Project Name="GLEngine" Version="11000">
   <Plugins>
     <Plugin Name="qmake">
       <![CDATA[00020001N0007Release0000000000000001N0017Release (Windows)000000000000]]>
@@ -75,12 +75,14 @@
       <ResourceCompiler Options=""/>
     </GlobalSettings>
     <Configuration Name="Release" CompilerType="GCC" DebuggerType="GNU gdb debugger" Type="Static Library" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
-      <Compiler Options="-O2 -Wall -std=c++14 -std=c++14 " C_Options="-O2 -Wall -std=c++14 -std=c++14 " Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+      <Compiler Options="-O3 -Wall -std=c++14 -std=c++14 " C_Options="-O3 -Wall -std=c++14 -std=c++14" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
         <IncludePath Value="."/>
+        <IncludePath Value="/usr/include/x86_64-linux-gnu/cegui-0.8.7/"/>
       </Compiler>
       <Linker Options="-s -static -lboost_filesystem -lboost_thread -lboost_system -Wl,-Bdynamic -lSDL2 -lSDL2_ttf -lSDL2_mixer -lGL -lGLEW " Required="yes">
         <LibraryPath Value="."/>
         <LibraryPath Value="Debug"/>
+        <LibraryPath Value="/usr/include/x86_64-linux-gnu/cegui-0.8.7/"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="bin/Release/libGLEngine.a" IntermediateDirectory="./obj/Release" Command="./bin/Release/libGLEngine.a" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="bin/Release" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
