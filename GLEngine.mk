@@ -5,7 +5,7 @@
 ## Release
 ProjectName            :=GLEngine
 ConfigurationName      :=Release
-WorkspacePath          :=/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine
+WorkspacePath          :=/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code
 ProjectPath            :=/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine
 IntermediateDirectory  :=./obj/Release
 OutDir                 := $(IntermediateDirectory)
@@ -79,8 +79,8 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList)
-	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/.build-release"
-	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/.build-release/GLEngine"
+	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug"
+	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug/GLEngine"
 
 MakeIntermediateDirs:
 	@test -d ./obj/Release || $(MakeDirCommand) ./obj/Release

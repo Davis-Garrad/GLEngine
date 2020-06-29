@@ -222,7 +222,7 @@ namespace GLEngine {
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
 
 		// Now that the VAO and VBO are created, we need to add the vertices.
-		Glyph g(m_destRect, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0, 0.8f, ColourRGBA8(255, 255, 255, 255), 0.0f, glm::vec4(0.0f)); // Just make a glyph to handle the vertex-placement
+		Glyph g(m_destRect, glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), 0, 0.8f, ColourRGBA8(255, 255, 255, 255)); // Just make a glyph to handle the vertex-placement
 
 		std::vector<Vertex> vertices;
 		vertices.push_back(g.topLeft);
