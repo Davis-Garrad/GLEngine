@@ -50,7 +50,7 @@ namespace GLEngine {
 			auto& p = m_particles[i];
 			if(p.life > 0.0f) {
 				glm::vec4 destRect(p.position.x, p.position.y, p.width, p.width);
-				spriteBatch->draw(destRect, uvRect, m_texture.id, depth, p.color, glm::vec4(1.0));
+				spriteBatch->draw(destRect, uvRect, m_texture.id, depth, p.color);
 			}
 		}
 	}
@@ -66,7 +66,7 @@ namespace GLEngine {
 			auto& p = m_particles[i];
 			if(p.life > 0.0f) {
 				glm::vec4 destRect(p.position.x, p.position.y, p.width, p.width);
-				spriteBatch->draw(destRect, uvRect, m_bumpMap.id, depth, p.color, glm::vec4(1.0f));
+				spriteBatch->draw(destRect, uvRect, m_bumpMap.id, depth, p.color);
 			}
 		}
 	}

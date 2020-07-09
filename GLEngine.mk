@@ -12,8 +12,8 @@ OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
-User                   :=Davis-dev
-Date                   :=06/07/20
+User                   :=Davis-Dev
+Date                   :=09/07/20
 CodeLitePath           :=/home/davis-dev/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -79,8 +79,8 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList)
-	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_release"
-	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_release/GLEngine"
+	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug"
+	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug/GLEngine"
 
 MakeIntermediateDirs:
 	@test -d ./obj/Release || $(MakeDirCommand) ./obj/Release
