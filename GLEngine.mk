@@ -2,21 +2,21 @@
 ## Auto Generated makefile by CodeLite IDE
 ## any manual changes will be erased      
 ##
-## Release
+## Release_(Windows32)
 ProjectName            :=GLEngine
-ConfigurationName      :=Release
+ConfigurationName      :=Release_(Windows32)
 WorkspacePath          :=/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code
 ProjectPath            :=/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine
-IntermediateDirectory  :=./obj/Release
+IntermediateDirectory  :=./obj/ReleaseWindows32/
 OutDir                 := $(IntermediateDirectory)
 CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Davis-Dev
-Date                   :=09/07/20
+Date                   :=10/07/20
 CodeLitePath           :=/home/davis-dev/.codelite
-LinkerName             :=/usr/bin/g++
-SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
+LinkerName             :=/usr/bin/i686-w64-mingw32-g++
+SharedObjectLinkerName :=/usr/bin/i686-w64-mingw32-g++ -shared -fPIC
 ObjectSuffix           :=.o
 DependSuffix           :=.o.d
 PreprocessSuffix       :=.i
@@ -27,7 +27,7 @@ OutputSwitch           :=-o
 LibraryPathSwitch      :=-L
 PreprocessorSwitch     :=-D
 SourceSwitch           :=-c 
-OutputFile             :=bin/Release/libGLEngine.a
+OutputFile             :=bin/ReleaseWindows32/libGLEngine.a
 Preprocessors          :=
 ObjectSwitch           :=-o 
 ArchiveOutputSwitch    := 
@@ -35,25 +35,25 @@ PreprocessOnlySwitch   :=-E
 ObjectsFileList        :="GLEngine.txt"
 PCHCompileFlags        :=
 MakeDirCommand         :=mkdir -p
-LinkOptions            :=  -s -static -lboost_filesystem -lboost_thread -lboost_system -Wl,-Bdynamic -lSDL2 -lSDL2_ttf -lSDL2_mixer -lGL -lGLEW 
-IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). $(IncludeSwitch)/usr/include/x86_64-linux-gnu/cegui-0.8.7/ 
+LinkOptions            :=  -s -static -lboost_system -lboost_filesystem -lboost_thread -Wl,-Bdynamic -lSDL2 -lSDL2_ttf -lSDL2_mixer -lopengl32 -lGLEW 
+IncludePath            :=  $(IncludeSwitch). $(IncludeSwitch). 
 IncludePCH             := 
 RcIncludePath          := 
 Libs                   := 
 ArLibs                 :=  
-LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch). $(LibraryPathSwitch)Debug $(LibraryPathSwitch)/usr/include/x86_64-linux-gnu/cegui-0.8.7/ 
+LibPath                := $(LibraryPathSwitch). $(LibraryPathSwitch). $(LibraryPathSwitch)Debug 
 
 ##
 ## Common variables
 ## AR, CXX, CC, AS, CXXFLAGS and CFLAGS can be overriden using an environment variables
 ##
-AR       := /usr/bin/ar rcu
-CXX      := /usr/bin/g++
-CC       := /usr/bin/gcc
-CXXFLAGS :=  -O3 -Wall -std=c++17 $(Preprocessors)
-CFLAGS   :=  -O3 -Wall -std=c++17 $(Preprocessors)
+AR       := /usr/bin/i686-w64-mingw32-ar rcu
+CXX      := /usr/bin/i686-w64-mingw32-g++
+CC       := /usr/bin/i686-w64-mingw32-gcc
+CXXFLAGS :=  -O3 -Wall -std=c++17 -DWINDOWS $(Preprocessors)
+CFLAGS   :=   $(Preprocessors)
 ASFLAGS  := 
-AS       := /usr/bin/as
+AS       := /usr/bin/i686-w64-mingw32-as
 
 
 ##
@@ -79,15 +79,15 @@ $(OutputFile): $(Objects)
 	@echo "" > $(IntermediateDirectory)/.d
 	@echo $(Objects0)  > $(ObjectsFileList)
 	$(AR) $(ArchiveOutputSwitch)$(OutputFile) @$(ObjectsFileList)
-	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug"
-	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-linux_debug/GLEngine"
+	@$(MakeDirCommand) "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-windows_release_(x32)"
+	@echo rebuilt > "/home/davis-dev/Documents/Programming/C++/CodingGithub/Fear-Of-The-Dark/Code/.build-windows_release_(x32)/GLEngine"
 
 MakeIntermediateDirs:
-	@test -d ./obj/Release || $(MakeDirCommand) ./obj/Release
+	@test -d ./obj/ReleaseWindows32/ || $(MakeDirCommand) ./obj/ReleaseWindows32/
 
 
-./obj/Release:
-	@test -d ./obj/Release || $(MakeDirCommand) ./obj/Release
+./obj/ReleaseWindows32/:
+	@test -d ./obj/ReleaseWindows32/ || $(MakeDirCommand) ./obj/ReleaseWindows32/
 
 PreBuild:
 
@@ -245,6 +245,6 @@ $(IntermediateDirectory)/IMainGame.cpp$(PreprocessSuffix): IMainGame.cpp
 ## Clean
 ##
 clean:
-	$(RM) -r ./obj/Release/
+	$(RM) -r ./obj/ReleaseWindows32/
 
 
