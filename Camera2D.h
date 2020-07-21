@@ -54,6 +54,12 @@ namespace GLEngine {
 			float getAspectRatio() const {
 				return (float)_screenWidth / (float)_screenHeight;
 			}
+			unsigned int getScreenWidth() const {
+				return _screenWidth;
+			}
+			unsigned int getScreenHeight() const {
+				return _screenHeight;
+			}
 
 		private:
 			int _screenWidth, _screenHeight;

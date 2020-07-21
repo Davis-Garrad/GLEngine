@@ -45,6 +45,8 @@ namespace GLEngine {
 			m_texture = ResourceManager::getTexture(m_texture.filePath);
 		}
 
+
+
 		for(int i = 0; i < m_maxParticles; i++) {
 			// Check if it is active
 			auto& p = m_particles[i];
