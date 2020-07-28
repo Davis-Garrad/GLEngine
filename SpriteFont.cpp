@@ -235,7 +235,7 @@ namespace GLEngine {
 	}
 
 	void SpriteFont::draw(SpriteBatch& batch, const char* s, glm::vec2 position, glm::vec2 scaling,
-	                      float depth, ColourRGBA8 tint, Justification just /* = Justification::LEFT */) {
+	                      float depth, ColourRGBA8 tint, Justification just /* = Justification::LEFT */, glm::vec4 uv/* = glm::vec2(1.0f, 1.0f)*/) {
 		glm::vec2 tp = position;
 		// Apply justification
 		if(just == Justification::MIDDLE) {
@@ -254,7 +254,8 @@ namespace GLEngine {
 				if(gi < 0 || gi >= _regLength)
 					gi = _regLength;
 				glm::vec4 destRect(tp, _glyphs[gi].size * scaling);
-				batch.draw(destRect, _glyphs[gi].uvRect, _texID, depth, tint);
+				glm::vec4 finalUVRect = glm::vec4(_glyphs[gi].uvRect.x + uv.x * _glyphs[gi].uvRect.z, _glyphs[gi].uvRect.y + uv.y * _glyphs[gi].uvRect.w, _glyphs[gi].uvRect.z * uv.z, _glyphs[gi].uvRect.w * uv.w);
+				batch.draw(destRect, finalUVRect, _texID, depth, tint);
 				tp.x += _glyphs[gi].size.x * scaling.x;
 			}
 		}
