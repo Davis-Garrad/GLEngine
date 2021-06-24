@@ -203,4 +203,7 @@
       </Completion>
     </Configuration>
   </Settings>
+  <Dependencies Name="Release"/>
+  <Dependencies Name="Release (Windows)"/>
+  <Dependencies Name="Release (Windows32)"/>
 </CodeLite_Project>

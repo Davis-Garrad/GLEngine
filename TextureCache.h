@@ -12,7 +12,7 @@ namespace GLEngine {
 			~TextureCache();
 
 			GLTexture& getTexture(std::string texturePath);
-			GLTexture addTexture(std::string name, int width, int height, std::vector<unsigned char> data);
+			GLTexture addTexture(std::string name, int width, int height, std::vector<unsigned char> data, unsigned int type = GL_RGBA);
 
 		private:
 			std::map<std::string, GLTexture> _textureMap;
