@@ -28,13 +28,16 @@ void ResourceManager::setTexture(std::string& name,
 {
     GLTexture tex = _textureCache.getTexture(name);
 
+    glBindTexture(GL_TEXTURE_2D, tex.id);
+
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
-    glBindTexture(GL_TEXTURE_2D, tex.id);
     glTexImage2D(GL_TEXTURE_2D, (GLint)0, type, (GLsizei)tex.width, (GLsizei)tex.height, (GLint)0, type,
         GL_UNSIGNED_BYTE, &((*data)[0]));
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void ResourceManager::setTexture(GLTexture& tex,
@@ -42,13 +45,17 @@ void ResourceManager::setTexture(GLTexture& tex,
     unsigned int type,
     unsigned int alignment)
 {
+    glBindTexture(GL_TEXTURE_2D, tex.id);
+
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
-    glBindTexture(GL_TEXTURE_2D, tex.id);
     glTexImage2D(GL_TEXTURE_2D, (GLint)0, type, (GLsizei)tex.width, (GLsizei)tex.height, (GLint)0, type,
         GL_UNSIGNED_BYTE, &((*data)[0]));
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
+
+    // Must set the texture in textureCache
+    _textureCache.getTexture(tex.filePath) = tex;
 }
 
 }
