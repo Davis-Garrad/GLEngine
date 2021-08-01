@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=Davis-dev
-Date                   :=25/07/21
+Date                   :=01/08/21
 CodeLitePath           :=/home/davis-dev/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,9 +60,9 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/AudioEngine.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLEngineErrors.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLEngineRandom.cpp$(ObjectSuffix) $(IntermediateDirectory)/GUI.cpp$(ObjectSuffix) $(IntermediateDirectory)/InputManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/ParticleBatch2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/ResourceManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Sprite.cpp$(ObjectSuffix) $(IntermediateDirectory)/SpriteFont.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLEngine.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/TextureCache.cpp$(ObjectSuffix) $(IntermediateDirectory)/Camera2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/SpriteBatch.cpp$(ObjectSuffix) $(IntermediateDirectory)/Timing.cpp$(ObjectSuffix) $(IntermediateDirectory)/Window.cpp$(ObjectSuffix) $(IntermediateDirectory)/picoPNG.cpp$(ObjectSuffix) $(IntermediateDirectory)/ParticleEngine2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/Physics.cpp$(ObjectSuffix) $(IntermediateDirectory)/IOManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/ScreenList.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/DebugRenderer.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLSLProgram.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoader.cpp$(ObjectSuffix) $(IntermediateDirectory)/IMainGame.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/GLContextManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/AudioEngine.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLEngineErrors.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLEngineRandom.cpp$(ObjectSuffix) $(IntermediateDirectory)/GUI.cpp$(ObjectSuffix) $(IntermediateDirectory)/InputManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/ParticleBatch2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/ResourceManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/Sprite.cpp$(ObjectSuffix) $(IntermediateDirectory)/SpriteFont.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/GLEngine.cpp$(ObjectSuffix) $(IntermediateDirectory)/TextureCache.cpp$(ObjectSuffix) $(IntermediateDirectory)/Camera2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/SpriteBatch.cpp$(ObjectSuffix) $(IntermediateDirectory)/Timing.cpp$(ObjectSuffix) $(IntermediateDirectory)/Window.cpp$(ObjectSuffix) $(IntermediateDirectory)/picoPNG.cpp$(ObjectSuffix) $(IntermediateDirectory)/ParticleEngine2D.cpp$(ObjectSuffix) $(IntermediateDirectory)/Physics.cpp$(ObjectSuffix) $(IntermediateDirectory)/IOManager.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/ScreenList.cpp$(ObjectSuffix) $(IntermediateDirectory)/DebugRenderer.cpp$(ObjectSuffix) $(IntermediateDirectory)/GLSLProgram.cpp$(ObjectSuffix) $(IntermediateDirectory)/ImageLoader.cpp$(ObjectSuffix) $(IntermediateDirectory)/IMainGame.cpp$(ObjectSuffix) 
 
 
 
@@ -95,6 +95,12 @@ PreBuild:
 ##
 ## Objects
 ##
+$(IntermediateDirectory)/GLContextManager.cpp$(ObjectSuffix): GLContextManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/GLContextManager.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/GLContextManager.cpp$(DependSuffix) -MM GLContextManager.cpp
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/GLContextManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/GLContextManager.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/GLContextManager.cpp$(PreprocessSuffix): GLContextManager.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/GLContextManager.cpp$(PreprocessSuffix) GLContextManager.cpp
+
 $(IntermediateDirectory)/AudioEngine.cpp$(ObjectSuffix): AudioEngine.cpp
 	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/AudioEngine.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/AudioEngine.cpp$(DependSuffix) -MM AudioEngine.cpp
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/davis-dev/Documents/Programming/C++/CodingGithub/GLEngine/AudioEngine.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/AudioEngine.cpp$(ObjectSuffix) $(IncludePath)

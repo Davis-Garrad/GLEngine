@@ -2,6 +2,7 @@
 
 #include <algorithm>
 
+#include "GLContextManager.h"
 #include "GLEngineErrors.h"
 
 #include <iostream>
@@ -168,10 +169,10 @@ void FrameBufferObject::begin()
     // Bind
     glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 
-    glActiveTexture(GL_TEXTURE0); // Bind textures
-    glBindTexture(GL_TEXTURE_2D, m_colourTex);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_depthTex);
+    GLContextManager::getGLContext()->setActiveTexture(GL_TEXTURE0); // Bind textures
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, m_colourTex);
+    GLContextManager::getGLContext()->setActiveTexture(GL_TEXTURE1);
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, m_depthTex);
 
     // Call glDrawBuffers
     GLenum bufs[1] = { GL_COLOR_ATTACHMENT0 };
@@ -184,8 +185,7 @@ void FrameBufferObject::end()
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
     // Unbind Textures
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    GLContextManager::getGLContext()->unbindTexture(GL_TEXTURE0, GL_TEXTURE_2D);
 }
 
 void FrameBufferObject::draw()
@@ -201,8 +201,8 @@ void FrameBufferObject::draw()
     glBindVertexArray(m_vao);
 
     // Set GL_TEXTURE0 and 1
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_colourTex);
+    GLContextManager::getGLContext()->setActiveTexture(GL_TEXTURE0);
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, m_colourTex);
     // Draw vertices (First 6 vertices (a destRect quad))
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -304,8 +304,8 @@ void FrameBufferObject::createTextures()
 
     // 2. Bind em, define em, attach em
     // Bind
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, m_colourTex);
+    GLEngine::GLContextManager::getGLContext()->setActiveTexture(GL_TEXTURE0);
+    GLEngine::GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, m_colourTex);
     // Define
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, (int)m_destRect.z, (int)m_destRect.w, 0, GL_RGBA, GL_UNSIGNED_BYTE,
         0); // Try giving the texture a place to put the data?
@@ -319,8 +319,8 @@ void FrameBufferObject::createTextures()
 
     // Repeat for depth attachment
     // Bind
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, m_depthTex);
+    GLEngine::GLContextManager::getGLContext()->setActiveTexture(GL_TEXTURE1);
+    GLEngine::GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, m_depthTex);
     // Define (we act like its a depth stencil because according to the internet, it works for some reason)
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, (int)m_destRect.z, (int)m_destRect.w, 0, GL_DEPTH_STENCIL,
         GL_UNSIGNED_INT_24_8, 0); // Try giving the texture a place to put the data?

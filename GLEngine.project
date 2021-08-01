@@ -6,6 +6,8 @@
     </Plugin>
   </Plugins>
   <VirtualDirectory Name="include">
+    <File Name="GLContextManager.cpp"/>
+    <File Name="GLContextManager.h"/>
     <File Name="picoPNG.h"/>
     <File Name="Window.h"/>
     <File Name="Vertex.h"/>

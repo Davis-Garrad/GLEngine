@@ -1,5 +1,9 @@
-obj/Release/ImageLoader.cpp.o: ImageLoader.cpp ImageLoader.h GLTexture.h \
- picoPNG.h IOManager.h GLEngineErrors.h
+obj/Release/ImageLoader.cpp.o: ImageLoader.cpp GLEngineErrors.h \
+ IOManager.h ImageLoader.h GLTexture.h picoPNG.h GLContextManager.h
+
+GLEngineErrors.h:
+
+IOManager.h:
 
 ImageLoader.h:
 
@@ -7,6 +11,4 @@ GLTexture.h:
 
 picoPNG.h:
 
-IOManager.h:
-
-GLEngineErrors.h:
+GLContextManager.h:

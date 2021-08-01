@@ -1,5 +1,7 @@
 #include "ResourceManager.h"
 
+#include "GLContextManager.h"
+
 namespace GLEngine
 {
 
@@ -28,7 +30,7 @@ void ResourceManager::setTexture(std::string& name,
 {
     GLTexture tex = _textureCache.getTexture(name);
 
-    glBindTexture(GL_TEXTURE_2D, tex.id);
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, tex.id);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
@@ -37,7 +39,7 @@ void ResourceManager::setTexture(std::string& name,
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, 0);
 }
 
 void ResourceManager::setTexture(GLTexture& tex,
@@ -45,7 +47,8 @@ void ResourceManager::setTexture(GLTexture& tex,
     unsigned int type,
     unsigned int alignment)
 {
-    glBindTexture(GL_TEXTURE_2D, tex.id);
+
+    GLContextManager::getGLContext()->bindTexture(GL_TEXTURE_2D, tex.id);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
 
