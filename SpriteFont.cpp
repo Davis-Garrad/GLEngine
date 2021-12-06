@@ -120,6 +120,7 @@ namespace GLEngine {
 
 				// Save glyph image and update coordinates
 				glTexSubImage2D(GL_TEXTURE_2D, 0, lx, bestHeight - ly - 1 - glyphSurface->h, glyphSurface->w, glyphSurface->h, GL_BGRA, GL_UNSIGNED_BYTE, glyphSurface->pixels);
+				
 				glyphRects[gi].x = lx;
 				glyphRects[gi].y = ly;
 				glyphRects[gi].z = glyphSurface->w;

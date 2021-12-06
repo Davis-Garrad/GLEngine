@@ -66,6 +66,9 @@
   </VirtualDirectory>
   <Description/>
   <Dependencies/>
+  <Dependencies Name="Release"/>
+  <Dependencies Name="Release (Windows)"/>
+  <Dependencies Name="Release (Windows32)"/>
   <Settings Type="Static Library">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -205,7 +208,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Release"/>
-  <Dependencies Name="Release (Windows)"/>
-  <Dependencies Name="Release (Windows32)"/>
 </CodeLite_Project>
